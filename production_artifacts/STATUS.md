@@ -1,7 +1,22 @@
 # Status Siklus
-- Command: /fixbug — Kredensial Google OAuth & Antrean Sinkronisasi Google Calendar
-- Dokumen: production_artifacts/Bug_Report.md
-- Selesai: 0 scout, 1 engineer (backend), 2 qa, 4 curator
+- Command: /addfeature — Penambahan Media Asli (Real Pet Photography) & Seeding Layanan + Galeri
+- Dokumen: production_artifacts/Feature_Spec_Real_Media_Seed.md, production_artifacts/QA_Findings.md
+- Selesai: 0 scout (onboarding), 1 pm, 2 designer, 3 backend & frontend, 4 qa, 5 devops, 6 curator
 - Berikutnya: -
-- File berubah: src/config/env.ts, src/app/api/integrations/google/sync-jobs/[id]/retry/route.ts, src/lib/minio.ts, tests/unit/google-calendar/google-oauth.test.ts, tests/integration/google-calendar/outbox-worker.test.ts, tests/integration/google-calendar/conflicts-disconnect.test.ts, tests/integration/google-calendar/webhook-freebusy.test.ts, production_artifacts/Bug_Report.md, .agents/memory/backend.md, .agents/memory/qa.md
-- Catatan untuk curator: Tersimpan di .agents/memory/backend.md dan .agents/memory/qa.md.
+- File berubah:
+  - scripts/download-real-media.ts (Skrip otomatis unduh aset asli)
+  - public/images/hero/hero-pet.webp (Foto anabul asli hero showcase)
+  - public/media/business/logos/logo.webp (Foto logo bisnis)
+  - public/media/services/images/cat-basic.webp (Foto layanan mandi kucing)
+  - public/media/services/images/cat-spa.webp (Foto layanan spa kucing)
+  - public/media/services/images/dog-basic.webp (Foto layanan mandi anjing)
+  - public/media/services/images/dog-styling.webp (Foto layanan styling anjing)
+  - public/media/services/images/treatment-parasite.webp (Foto layanan treatment jamur & kutu)
+  - public/media/gallery/images/salon-facility.webp (Foto galeri fasilitas salon)
+  - public/media/gallery/images/cat-persian-groom.webp (Foto galeri kucing persia)
+  - public/media/gallery/images/dog-poodle-groom.webp (Foto galeri anjing poodle)
+  - public/media/gallery/images/dog-bath-fun.webp (Foto galeri anjing mandi busa)
+  - src/modules/storage/media.service.ts (Dukungan local file stream fallback)
+  - prisma/seed.ts (Seeding MediaAsset, Service imageObjectKey, dan BusinessGallery)
+  - src/app/(public)/page.tsx (Hero section menggunakan foto anabul asli dan galeri aktif)
+- Status Pengujian: 47 file pengujian (355 test case) lolos 100%. TypeScript: 0 error. ESLint: 0 error. Server aktif di http://localhost:3000.

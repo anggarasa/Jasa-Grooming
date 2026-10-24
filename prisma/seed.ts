@@ -43,6 +43,7 @@ async function main() {
       postalCode: "14240",
       googleMapsUrl: "https://maps.google.com/?q=-6.1553,106.9012",
       timezone: "Asia/Jakarta",
+      logoObjectKey: "business/logos/logo.webp",
       status: "ACTIVE",
       isActive: true,
     },
@@ -61,6 +62,7 @@ async function main() {
       postalCode: "14240",
       googleMapsUrl: "https://maps.google.com/?q=-6.1553,106.9012",
       timezone: "Asia/Jakarta",
+      logoObjectKey: "business/logos/logo.webp",
       status: "ACTIVE",
       isActive: true,
     },
@@ -233,6 +235,7 @@ async function main() {
       description: "Mandi bersih, potong kuku, bersihkan telinga, dan sisir bulu.",
       durationMinutes: 60,
       price: 85000,
+      imageObjectKey: "services/images/cat-basic.webp",
       isActive: true,
     },
     create: {
@@ -243,6 +246,7 @@ async function main() {
       description: "Mandi bersih, potong kuku, bersihkan telinga, dan sisir bulu.",
       durationMinutes: 60,
       price: 85000,
+      imageObjectKey: "services/images/cat-basic.webp",
       isActive: true,
     },
   });
@@ -260,6 +264,7 @@ async function main() {
       description: "Basic grooming plus conditioning bulu, blowing halus, dan parfum.",
       durationMinutes: 90,
       price: 135000,
+      imageObjectKey: "services/images/cat-spa.webp",
       isActive: true,
     },
     create: {
@@ -270,6 +275,7 @@ async function main() {
       description: "Basic grooming plus conditioning bulu, blowing halus, dan parfum.",
       durationMinutes: 90,
       price: 135000,
+      imageObjectKey: "services/images/cat-spa.webp",
       isActive: true,
     },
   });
@@ -287,6 +293,7 @@ async function main() {
       description: "Mandi higienis, potong kuku, bersihkan telinga, perapihan telapak.",
       durationMinutes: 60,
       price: 95000,
+      imageObjectKey: "services/images/dog-basic.webp",
       isActive: true,
     },
     create: {
@@ -297,6 +304,7 @@ async function main() {
       description: "Mandi higienis, potong kuku, bersihkan telinga, perapihan telapak.",
       durationMinutes: 60,
       price: 95000,
+      imageObjectKey: "services/images/dog-basic.webp",
       isActive: true,
     },
   });
@@ -314,6 +322,7 @@ async function main() {
       description: "Mandi lengkap plus haircut styling sesuai standar ras.",
       durationMinutes: 90,
       price: 165000,
+      imageObjectKey: "services/images/dog-styling.webp",
       isActive: true,
     },
     create: {
@@ -324,6 +333,7 @@ async function main() {
       description: "Mandi lengkap plus haircut styling sesuai standar ras.",
       durationMinutes: 90,
       price: 165000,
+      imageObjectKey: "services/images/dog-styling.webp",
       isActive: true,
     },
   });
@@ -341,6 +351,7 @@ async function main() {
       description: "Mandi obat medis dengan formula khusus mengeliminasi parasit dan jamur kulit.",
       durationMinutes: 75,
       price: 120000,
+      imageObjectKey: "services/images/treatment-parasite.webp",
       isActive: true,
     },
     create: {
@@ -351,10 +362,107 @@ async function main() {
       description: "Mandi obat medis dengan formula khusus mengeliminasi parasit dan jamur kulit.",
       durationMinutes: 75,
       price: 120000,
+      imageObjectKey: "services/images/treatment-parasite.webp",
       isActive: true,
     },
   });
   console.log("✓ Daftar layanan berhasil disiapkan");
+
+  // 5b. Seed Business Gallery Items
+  const gallerySeedData = [
+    {
+      objectKey: "gallery/images/salon-facility.webp",
+      caption: "Area Grooming Bersih Ber-AC",
+      altText: "Ruangan salon bersih dengan meja hidrolik dan sterilisasi UV",
+      displayOrder: 1,
+    },
+    {
+      objectKey: "gallery/images/cat-persian-groom.webp",
+      caption: "Kucing Persia Selesai Mandi Spa",
+      altText: "Kucing persia putih bersih, wangi, dan ceria setelah perawatan spa",
+      displayOrder: 2,
+    },
+    {
+      objectKey: "gallery/images/dog-poodle-groom.webp",
+      caption: "Poodle Cantik Haircut Rapi",
+      altText: "Anjing poodle hasil styling gunting rapi dan harum",
+      displayOrder: 3,
+    },
+    {
+      objectKey: "gallery/images/dog-bath-fun.webp",
+      caption: "Anabul Ceria saat Mandi Busa",
+      altText: "Anjing riang gembira menikmati sesi mandi spa hypoallergenic",
+      displayOrder: 4,
+    },
+  ];
+
+  for (const item of gallerySeedData) {
+    const existing = await prisma.businessGallery.findFirst({
+      where: {
+        businessId: business.id,
+        objectKey: item.objectKey,
+      },
+    });
+
+    if (existing) {
+      await prisma.businessGallery.update({
+        where: { id: existing.id },
+        data: {
+          caption: item.caption,
+          altText: item.altText,
+          displayOrder: item.displayOrder,
+          isActive: true,
+        },
+      });
+    } else {
+      await prisma.businessGallery.create({
+        data: {
+          businessId: business.id,
+          objectKey: item.objectKey,
+          caption: item.caption,
+          altText: item.altText,
+          displayOrder: item.displayOrder,
+          isActive: true,
+        },
+      });
+    }
+  }
+  console.log("✓ Galeri dokumentasi bisnis berhasil disiapkan");
+
+  // 5c. Seed MediaAssets for tracking
+  const mediaAssetsData = [
+    { objectKey: "business/logos/logo.webp", originalName: "logo.webp", folder: "business/logos", sizeBytes: 24125 },
+    { objectKey: "services/images/cat-basic.webp", originalName: "cat-basic.webp", folder: "services/images", sizeBytes: 28784 },
+    { objectKey: "services/images/cat-spa.webp", originalName: "cat-spa.webp", folder: "services/images", sizeBytes: 142031 },
+    { objectKey: "services/images/dog-basic.webp", originalName: "dog-basic.webp", folder: "services/images", sizeBytes: 35784 },
+    { objectKey: "services/images/dog-styling.webp", originalName: "dog-styling.webp", folder: "services/images", sizeBytes: 33601 },
+    { objectKey: "services/images/treatment-parasite.webp", originalName: "treatment-parasite.webp", folder: "services/images", sizeBytes: 44717 },
+    { objectKey: "gallery/images/salon-facility.webp", originalName: "salon-facility.webp", folder: "gallery/images", sizeBytes: 37633 },
+    { objectKey: "gallery/images/cat-persian-groom.webp", originalName: "cat-persian-groom.webp", folder: "gallery/images", sizeBytes: 81401 },
+    { objectKey: "gallery/images/dog-poodle-groom.webp", originalName: "dog-poodle-groom.webp", folder: "gallery/images", sizeBytes: 109486 },
+    { objectKey: "gallery/images/dog-bath-fun.webp", originalName: "dog-bath-fun.webp", folder: "gallery/images", sizeBytes: 70309 },
+  ];
+
+  for (const asset of mediaAssetsData) {
+    await prisma.mediaAsset.upsert({
+      where: { objectKey: asset.objectKey },
+      update: {
+        originalName: asset.originalName,
+        folder: asset.folder,
+        sizeBytes: asset.sizeBytes,
+        mimeType: "image/webp",
+      },
+      create: {
+        businessId: business.id,
+        objectKey: asset.objectKey,
+        originalName: asset.originalName,
+        mimeType: "image/webp",
+        sizeBytes: asset.sizeBytes,
+        folder: asset.folder,
+      },
+    });
+  }
+  console.log("✓ Media assets metadata berhasil disiapkan");
 
   // 6. Seed Sample Customer, Pet, and Booking
   let sampleCustomer = await prisma.customer.findFirst({

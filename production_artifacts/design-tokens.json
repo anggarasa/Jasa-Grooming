@@ -6,36 +6,36 @@
   "theme": {
     "light": {
       "colors": {
-        "background": "#F8FAFC",
-        "foreground": "#0F172A",
+        "background": "#F5F6F3",
+        "foreground": "#111827",
         "card": {
           "background": "#FFFFFF",
-          "foreground": "#0F172A",
-          "border": "#E2E8F0"
+          "foreground": "#111827",
+          "border": "#E2E6DF"
         },
         "popover": {
           "background": "#FFFFFF",
-          "foreground": "#0F172A"
+          "foreground": "#111827"
         },
         "primary": {
-          "DEFAULT": "#142C52",
+          "DEFAULT": "#111827",
           "foreground": "#FFFFFF",
-          "hover": "#0E1E38",
-          "active": "#0A1628",
-          "subtle": "#EBF1F9"
+          "hover": "#1F2937",
+          "active": "#030712",
+          "subtle": "#E8EDE7"
         },
         "secondary": {
-          "DEFAULT": "#EAF2FF",
-          "foreground": "#142C52",
-          "hover": "#D8E6FE",
-          "active": "#C3D9FC"
+          "DEFAULT": "#E8EDE7",
+          "foreground": "#2D4233",
+          "hover": "#DCE3DA",
+          "active": "#CFD8CD"
         },
         "accent": {
-          "DEFAULT": "#0D9488",
-          "foreground": "#FFFFFF",
-          "hover": "#0B7A70",
-          "active": "#09625A",
-          "subtle": "#E6F6F5"
+          "DEFAULT": "#B4C4B9",
+          "foreground": "#111827",
+          "hover": "#A1B4A6",
+          "active": "#8EA394",
+          "subtle": "#F0F4F1"
         },
         "muted": {
           "DEFAULT": "#F1F5F9",

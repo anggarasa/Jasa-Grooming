@@ -29,6 +29,15 @@ describe("Booking Engine Integration & PostgreSQL Concurrency Control", () => {
       throw new Error("Layanan aktif tidak ditemukan di basis data.");
     }
     activeServiceId = service.id;
+
+    // Bersihkan sisa data reservasi pengujian konkurensi sebelumnya
+    await prisma.booking.deleteMany({
+      where: {
+        customer: {
+          phone: { in: ["081211110001", "081211110002", "081299998888", "081234567890"] },
+        },
+      },
+    });
   });
 
   afterAll(async () => {
@@ -241,6 +250,13 @@ describe("Booking Engine Integration & PostgreSQL Concurrency Control", () => {
   it("PostgreSQL Concurrency Control — 2 request simultan pada slot sama: tepat 1 sukses (201) dan 1 ditolak (409)", async () => {
     const testDate = getFutureWeekday(9);
     const targetTime = "09:00";
+
+    // Pastikan slot bersih dari sisa pengujian sebelumnya sebelum uji perlombaan
+    await prisma.booking.deleteMany({
+      where: {
+        startAt: new Date(`${testDate}T02:00:00.000Z`),
+      },
+    });
 
     const payloadA = {
       serviceId: activeServiceId,

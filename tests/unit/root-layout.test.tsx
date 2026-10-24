@@ -5,6 +5,7 @@ import RootLayout, { metadata } from "@/app/layout";
 
 // Mock next/font/google
 vi.mock("next/font/google", () => ({
+  Plus_Jakarta_Sans: () => ({ variable: "--font-plus-jakarta-sans" }),
   Geist: () => ({ variable: "--font-geist-sans" }),
   Geist_Mono: () => ({ variable: "--font-geist-mono" }),
 }));

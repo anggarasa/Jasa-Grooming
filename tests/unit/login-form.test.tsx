@@ -131,4 +131,33 @@ describe("LoginForm Component", () => {
       expect(mockPush).toHaveBeenCalledWith("/dashboard");
     });
   });
+
+  it("dapat login otomatis menggunakan tombol Masuk dengan User Dummy", async () => {
+    const loginSpy = vi.spyOn(authClient, "loginApi").mockResolvedValueOnce({
+      success: true,
+      data: {
+        user: {
+          id: "owner-1",
+          name: "Owner PawCare",
+          email: "owner@pawcare.id",
+          role: "OWNER",
+        },
+      },
+    });
+
+    render(<LoginForm />);
+
+    const demoBtn = screen.getByRole("button", {
+      name: /Masuk dengan User Dummy/i,
+    });
+    fireEvent.click(demoBtn);
+
+    await waitFor(() => {
+      expect(loginSpy).toHaveBeenCalledWith({
+        email: "owner@pawcare.id",
+        password: "Password123!",
+      });
+      expect(mockPush).toHaveBeenCalledWith("/dashboard");
+    });
+  });
 });

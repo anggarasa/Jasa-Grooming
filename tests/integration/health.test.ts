@@ -18,6 +18,7 @@ describe("Health Check API Route (GET /api/health)", () => {
       healthy: true,
       bucket: "tampilkit-booking",
     });
+    vi.spyOn(prisma.calendarConnection, "findFirst").mockResolvedValue(null);
 
     const response = await GET();
     const data = await response.json();
@@ -42,6 +43,7 @@ describe("Health Check API Route (GET /api/health)", () => {
       healthy: true,
       bucket: "tampilkit-booking",
     });
+    vi.spyOn(prisma.calendarConnection, "findFirst").mockResolvedValue(null);
 
     const response = await GET();
     const data = await response.json();

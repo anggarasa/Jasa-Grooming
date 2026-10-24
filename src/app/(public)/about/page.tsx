@@ -55,17 +55,17 @@ export default async function AboutPage() {
       />
 
       {/* Header Banner */}
-      <div className="border-b border-border bg-gradient-to-b from-secondary/40 via-background to-background py-12 sm:py-20">
+      <div className="border-b border-[#A2B5A8]/50 bg-[#B4C4B9] py-12 sm:py-20 text-black">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent-subtle px-3 py-1 text-xs font-semibold text-accent">
-              <Heart className="h-3.5 w-3.5" aria-hidden="true" />
-              <span>Dedikasi Penuh Kasih untuk Anabul</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-xs px-3.5 py-1 text-xs font-bold text-black border border-white">
+              <Heart className="h-3.5 w-3.5 text-[#15803D]" aria-hidden="true" />
+              <span>DEDIKASI PENUH KASIH UNTUK ANABUL</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-black leading-tight uppercase">
               Merawat Setiap Hewan Seperti Keluarga Sendiri
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+            <p className="text-sm sm:text-base text-black/80 font-medium leading-relaxed">
               {business?.description ||
                 "PawCare Grooming lahir dari kecintaan tulus terhadap hewan peliharaan, menghadirkan tempat perawatan higienis, aman, dan menenangkan tanpa stres bagi anjing dan kucing."}
             </p>
@@ -74,7 +74,7 @@ export default async function AboutPage() {
       </div>
 
       {/* Core Brand Values */}
-      <section className="py-16 sm:py-24 bg-background border-b border-border/60">
+      <section className="py-16 sm:py-24 bg-[#F5F6F3] border-b border-[#E2E6DF]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-12 space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-accent">

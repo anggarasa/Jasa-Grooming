@@ -61,25 +61,27 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
   return (
     <>
       {/* Schema.org Breadcrumb */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: serializeJsonLd(breadcrumbJsonLd),
-        }}
-      />
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: serializeJsonLd(breadcrumbJsonLd),
+          }}
+        />
+      )}
 
-      {/* Header Banner */}
-      <div className="border-b border-border bg-gradient-to-b from-secondary/40 via-background to-background py-12 sm:py-16">
+      {/* Header Banner (Mineral Sage) */}
+      <div className="border-b border-[#A2B5A8]/50 bg-[#B4C4B9] py-12 sm:py-16 text-black">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent-subtle px-3 py-1 text-xs font-semibold text-accent">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              <span>Paket Perawatan Terlengkap</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/80 backdrop-blur-xs px-3.5 py-1 text-xs font-bold text-black border border-white">
+              <Sparkles className="h-3.5 w-3.5 text-[#15803D]" aria-hidden="true" />
+              <span>PAKET PERAWATAN TERLENGKAP</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-foreground">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-black uppercase">
               Katalog Layanan Grooming
             </h1>
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+            <p className="text-xs sm:text-sm text-black/80 font-medium leading-relaxed">
               Pilih paket perawatan yang disesuaikan dengan ras, ukuran, dan kebutuhan spesifik anabul di {businessName}.
             </p>
           </div>
@@ -87,7 +89,7 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="sticky top-16 z-30 border-b border-border bg-background/95 backdrop-blur py-4 shadow-2xs">
+      <div className="sticky top-18 z-30 border-b border-[#E2E6DF] bg-white/95 backdrop-blur-md py-4 shadow-2xs">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             {/* Category Pills */}
@@ -103,52 +105,55 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
             <form
               method="GET"
               action="/services"
-              className="flex items-center gap-2 w-full md:w-72 shrink-0"
+              className="flex items-center gap-2 w-full md:w-80 shrink-0"
             >
               {categorySlug && (
                 <input type="hidden" name="category" value={categorySlug} />
               )}
               <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" aria-hidden="true" />
                 <Input
                   type="search"
                   name="search"
                   placeholder="Cari nama layanan..."
                   defaultValue={searchQuery || ""}
-                  className="pl-9 text-xs h-9"
+                  className="pl-9 text-xs h-10 rounded-full border-[#E2E6DF] bg-[#F5F6F3] focus:bg-white text-black"
                 />
               </div>
-              <Button type="submit" size="sm" variant="default" className="text-xs h-9 px-3">
+              <button
+                type="submit"
+                className="rounded-full bg-black text-white hover:bg-neutral-800 text-xs font-bold h-10 px-4 transition-all shrink-0"
+              >
                 Cari
-              </Button>
+              </button>
             </form>
           </div>
         </div>
       </div>
 
       {/* Main Content / Service Cards Grid */}
-      <section className="py-10 sm:py-14 bg-background">
+      <section className="py-10 sm:py-16 bg-[#F5F6F3]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Status Bar */}
-          <div className="flex items-center justify-between mb-8 pb-3 border-b border-border/60 text-xs text-muted-foreground">
+          <div className="flex items-center justify-between mb-8 pb-3 border-b border-[#E2E6DF] text-xs text-slate-500">
             <div>
               Menampilkan{" "}
-              <strong className="text-foreground font-bold">{services.length}</strong>{" "}
+              <strong className="text-black font-black">{services.length}</strong>{" "}
               layanan
               {activeCategory && (
                 <span>
-                  {" "}dalam kategori &ldquo;<strong className="text-foreground">{activeCategory.name}</strong>&rdquo;
+                  {" "}dalam kategori &ldquo;<strong className="text-black">{activeCategory.name}</strong>&rdquo;
                 </span>
               )}
               {searchQuery && (
                 <span>
-                  {" "}dengan kata kunci &ldquo;<strong className="text-foreground">{searchQuery}</strong>&rdquo;
+                  {" "}dengan kata kunci &ldquo;<strong className="text-black">{searchQuery}</strong>&rdquo;
                 </span>
               )}
             </div>
 
             {(categorySlug || searchQuery) && (
-              <Button asChild variant="ghost" size="sm" className="h-7 text-xs text-muted-foreground hover:text-foreground">
+              <Button asChild variant="ghost" size="sm" className="h-7 text-xs text-slate-600 hover:text-black rounded-full">
                 <Link href="/services">
                   <RotateCcw className="h-3 w-3 mr-1" aria-hidden="true" />
                   Reset Filter
@@ -165,18 +170,18 @@ export default async function ServicesPage({ searchParams }: ServicesPageProps) 
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border py-16 px-4 text-center bg-card">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary text-primary mb-4">
-                <SlidersHorizontal className="h-7 w-7 text-accent" aria-hidden="true" />
+            <div className="flex flex-col items-center justify-center rounded-[26px] border border-dashed border-[#D5DDD3] py-16 px-4 text-center bg-white shadow-2xs">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#E2EAE1] text-[#2D4233] mb-4">
+                <SlidersHorizontal className="h-6 w-6" aria-hidden="true" />
               </div>
-              <h3 className="text-base font-bold text-foreground">
+              <h3 className="text-base font-black text-black">
                 Tidak Ada Layanan yang Cocok
               </h3>
-              <p className="mt-1 text-sm text-muted-foreground max-w-md">
+              <p className="mt-1 text-xs text-slate-500 max-w-md">
                 Tidak ditemukan layanan yang sesuai dengan filter kategori atau kata kunci pencarian Anda.
               </p>
               <div className="mt-6">
-                <Button asChild variant="accent" size="sm">
+                <Button asChild className="rounded-full bg-black text-white hover:bg-neutral-800 text-xs font-bold" size="sm">
                   <Link href="/services">
                     <RotateCcw className="h-3.5 w-3.5 mr-1.5" aria-hidden="true" />
                     Tampilkan Semua Layanan

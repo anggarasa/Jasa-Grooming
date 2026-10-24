@@ -34,26 +34,26 @@ export function CategoryFilterPills({
 
   return (
     <nav
-      className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none"
+      className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none"
       aria-label="Filter Kategori Layanan"
     >
       {/* Tombol Semua Layanan */}
       <button
         type="button"
         onClick={() => handleSelect(undefined)}
-        className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+        className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer ${
           isAllActive
-            ? "bg-primary text-primary-foreground shadow-xs"
-            : "border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+            ? "bg-black text-white shadow-2xs"
+            : "border border-[#E2E6DF] bg-white text-slate-700 hover:border-black/30 hover:text-black"
         }`}
         aria-pressed={isAllActive}
       >
         <span>Semua Layanan</span>
         <span
-          className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+          className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
             isAllActive
-              ? "bg-primary-hover text-white"
-              : "bg-muted text-muted-foreground"
+              ? "bg-white/20 text-white"
+              : "bg-[#F3F4F1] text-slate-600"
           }`}
         >
           {totalServicesCount}
@@ -68,19 +68,19 @@ export function CategoryFilterPills({
             key={cat.id}
             type="button"
             onClick={() => handleSelect(cat.slug)}
-            className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+            className={`inline-flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer ${
               isActive
-                ? "bg-primary text-primary-foreground shadow-xs"
-                : "border border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "bg-black text-white shadow-2xs"
+                : "border border-[#E2E6DF] bg-white text-slate-700 hover:border-black/30 hover:text-black"
             }`}
             aria-pressed={isActive}
           >
             <span>{cat.name}</span>
             <span
-              className={`rounded-full px-1.5 py-0.2 text-[10px] font-bold ${
+              className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
                 isActive
-                  ? "bg-primary-hover text-white"
-                  : "bg-muted text-muted-foreground"
+                  ? "bg-white/20 text-white"
+                  : "bg-[#F3F4F1] text-slate-600"
               }`}
             >
               {cat.serviceCount}

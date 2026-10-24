@@ -1,5 +1,7 @@
 import "server-only";
 import crypto from "crypto";
+import fs from "fs";
+import path from "path";
 import { Readable } from "stream";
 import { prisma } from "@/lib/prisma";
 import {
@@ -139,6 +141,32 @@ export async function getMediaStream(
     });
     if (asset) {
       normalizedKey = asset.objectKey;
+    }
+  }
+
+  // 1. Cek fallback berkas lokal (misalnya di folder public/media/)
+  const localCandidates = [
+    path.join(process.cwd(), "public", "media", normalizedKey),
+    path.join(process.cwd(), "public", normalizedKey),
+  ];
+
+  for (const candidatePath of localCandidates) {
+    if (fs.existsSync(candidatePath)) {
+      const stat = fs.statSync(candidatePath);
+      if (stat.isFile()) {
+        const stream = fs.createReadStream(candidatePath);
+        let contentType = "application/octet-stream";
+        if (normalizedKey.endsWith(".webp")) contentType = "image/webp";
+        else if (normalizedKey.endsWith(".jpg") || normalizedKey.endsWith(".jpeg")) contentType = "image/jpeg";
+        else if (normalizedKey.endsWith(".png")) contentType = "image/png";
+        else if (normalizedKey.endsWith(".svg")) contentType = "image/svg+xml";
+
+        return {
+          stream,
+          contentType,
+          size: stat.size,
+        };
+      }
     }
   }
 

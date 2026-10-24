@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  PawPrint,
   LayoutDashboard,
   CalendarCheck,
   Calendar,
@@ -25,6 +24,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { BrandLogo } from "@/components/common/BrandLogo";
 
 interface NavItem {
   title: string;
@@ -163,18 +163,8 @@ export function DashboardSidebar({ onItemClick, className }: DashboardSidebarPro
       )}
     >
       {/* Branding */}
-      <div className="h-16 flex items-center px-6 border-b border-sidebar-border gap-3">
-        <div className="h-9 w-9 rounded-lg bg-accent flex items-center justify-center text-accent-foreground shadow-sm">
-          <PawPrint className="h-5 w-5" />
-        </div>
-        <div className="flex flex-col">
-          <span className="font-bold tracking-tight text-sidebar-foreground text-base">
-            PawCare Grooming
-          </span>
-          <span className="text-xs text-sidebar-muted font-medium">
-            Admin Portal v1.0
-          </span>
-        </div>
+      <div className="h-16 flex items-center px-4 border-b border-sidebar-border">
+        <BrandLogo theme="inverted" size="sm" businessName="PawCare Grooming" subtitle="Admin Portal v1.0" />
       </div>
 
       {/* Nav Sections */}

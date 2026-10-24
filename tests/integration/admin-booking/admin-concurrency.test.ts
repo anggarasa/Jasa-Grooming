@@ -161,6 +161,15 @@ describe("PostgreSQL Concurrency Tests (Admin & Guest Mutations)", () => {
         ],
       },
     });
+    await prisma.resourceBlock.deleteMany({
+      where: {
+        resourceId: activeResourceId,
+        OR: [
+          { startAt: { lt: targetEnd }, endAt: { gt: targetStart } },
+          { startAt: { lt: origEnd }, endAt: { gt: origStart } },
+        ],
+      },
+    });
 
     // Buat booking awal untuk di-reschedule
     const initialReq = new NextRequest("http://localhost:3000/api/bookings", {
@@ -230,9 +239,28 @@ describe("PostgreSQL Concurrency Tests (Admin & Guest Mutations)", () => {
     const testDate = getFutureWeekday(21);
     const targetTime = "14:00";
 
-    const blockStartAt = jakartaDateToUtc(testDate, targetTime).toISOString();
+    const slotStart = jakartaDateToUtc(testDate, targetTime);
+    const slotEnd = new Date(slotStart.getTime() + 120 * 60 * 1000);
+
+    // Clean up test slots
+    await prisma.resourceBlock.deleteMany({
+      where: {
+        resourceId: activeResourceId,
+        startAt: { lt: slotEnd },
+        endAt: { gt: slotStart },
+      },
+    });
+    await prisma.booking.deleteMany({
+      where: {
+        resourceId: activeResourceId,
+        startAt: { lt: slotEnd },
+        occupancyEndAt: { gt: slotStart },
+      },
+    });
+
+    const blockStartAt = slotStart.toISOString();
     const blockEndAt = new Date(
-      jakartaDateToUtc(testDate, targetTime).getTime() + 90 * 60 * 1000
+      slotStart.getTime() + 90 * 60 * 1000
     ).toISOString();
 
     const blockReq = new NextRequest("http://localhost:3000/api/admin/resource-blocks", {
