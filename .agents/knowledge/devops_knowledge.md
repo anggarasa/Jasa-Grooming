@@ -29,4 +29,4 @@
 ## Section B — Pembelajaran Dinamis (diisi otomatis oleh @curator)
 > Format: `- [YYYY-MM-DD] [Kategori] Deskripsi pelajaran & cara mencegahnya.`
 
-_(Belum ada entry.)_
+- [2026-10-24] [Git & Secret Protection] Berkas .env.example yang terlacak di Git WAJIB hanya memuat nilai placeholder (misalnya 'your-google-client-id.apps.googleusercontent.com' dan 'your-secret'). Jika rahasia riil sempat ter-commit, GitHub Push Protection akan menolak push sampai riwayat komit git dibersihkan melalui git rebase/amend.

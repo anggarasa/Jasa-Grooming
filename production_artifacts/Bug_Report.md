@@ -1,25 +1,36 @@
-# Laporan Perbaikan Bug: Kredensial Google OAuth & Antrean Sinkronisasi Google Calendar
+# Laporan Perbaikan Bug: Penolakan Git Push oleh GitHub Push Protection (Rahasia Google OAuth di .env.example)
 
-- **Gejala**:
-  1. Halaman pemantauan Google Calendar (`/dashboard/integrations/google-calendar`) menampilkan outbox job `#E642LD` (`cmvl7ndij0029um5wh7e642ld`) berstatus `Gagal (Retrying)` (1/5 attempts) atau `DEAD_LETTER` dengan pesan error: `Kredensial Google OAuth (GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET) belum dikonfigurasikan.`
-  2. Klik tombol "Coba Lagi" pada antrean sinkronisasi tidak memproses job secara seketika.
-  3. Konfigurasi kredensial Google pada `.env.local` tidak termuat secara otomatis ke runtime worker/scripts jika proses server lama belum dimuat ulang.
-  4. Pengujian unit Google Calendar sebelumnya tidak terisolasi sehingga menimpa/menghapus record koneksi milik bisnis utama di database.
+## 1. Gejala (Symptoms)
+- Perintah `git push -f origin v1` ditolak oleh remote GitHub dengan status `[remote rejected] v1 -> v1 (push declined due to repository rule violations)` dan kode error `GH013`.
+- GitHub Push Protection mendeteksi adanya kredensial rahasia asli pada riwayat komit `b36479d948edc4bbfec6fa256f073cbb758fee73`:
+  - `path: .env.example:24` (Google OAuth Client ID)
+  - `path: .env.example:25` (Google OAuth Client Secret)
 
-- **Root Cause**:
-  1. **Runtime Env Loading**: `src/config/env.ts` hanya memuat `.env` saat `!process.env.DATABASE_URL`, dan tidak memuat `.env.local`. Akibatnya saat proses Next.js atau worker berjalan secara mandiri, variabel kredensial Google OAuth (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`) yang disimpan di `.env.local` tidak terbaca. Selain itu, proses Next.js pada port 3000 dijalankan sebelum pengguna selesai mengisi `.env.local`, sehingga server yang berjalan menyimpan variabel environment kosong dalam memori prosesnya.
-  2. **Endpoint Retry Sync**: `src/app/api/integrations/google/sync-jobs/[id]/retry/route.ts` hanya mengatur status job ke `PENDING` di database tanpa langsung memicu `executeSyncJob(job.id)`. Jika daemon worker tidak dijalankan di terminal terpisah, job tetap berada dalam status menunggu.
-  3. **Test Data Contamination**: File pengujian unit & integrasi (`tests/unit/google-calendar/google-oauth.test.ts`, `tests/integration/google-calendar/outbox-worker.test.ts`, `conflicts-disconnect.test.ts`, dan `webhook-freebusy.test.ts`) menggunakan `prisma.business.findFirst()` langsung terhadap bisnis utama (PawCare Grooming), sehingga eksekusi pengujian mereset dan mengosongkan token kredensial asli pengguna.
+---
 
-- **File Diubah**:
-  1. `src/config/env.ts`: Memuat `.env.local` dan `.env` secara sekuensial melalui `process.loadEnvFile` di Node.js runtime agar variabel lokal selalu tersedia di server, worker, dan standalone scripts.
-  2. `src/app/api/integrations/google/sync-jobs/[id]/retry/route.ts`: Menambahkan eksekusi seketika (`executeSyncJob`) saat admin menekan tombol "Coba Lagi" sehingga pemrosesan ulang berlangsung instan dan responsif.
-  3. `src/lib/minio.ts`: Menambahkan batasan timeout 2 detik (`Promise.race`) pada `checkStorageHealth()` agar pemeriksaan kesehatan sistem tidak hang ketika MinIO storage tidak merespons.
-  4. `tests/unit/google-calendar/google-oauth.test.ts`, `tests/integration/google-calendar/outbox-worker.test.ts`, `tests/integration/google-calendar/conflicts-disconnect.test.ts`, `tests/integration/google-calendar/webhook-freebusy.test.ts`: Mengisolasi data pengujian menggunakan dedicated fixture business (`test-fixture-biz-*`) dan membersihkannya pada `afterAll` agar tidak menyentuh data bisnis utama.
+## 2. Akar Masalah (Root Cause)
+- Berkas template lingkungan `.env.example` secara tidak sengaja terisi oleh nilai kredensial Google OAuth nyata (`916790710623-...` dan `GOCSPX-...`) saat tahap penambahan fitur Google Calendar pada komit terdahulu.
+- Walaupun berkas `.env` dan `.env.local` telah di-ignore oleh `.gitignore`, berkas `.env.example` terlacak oleh Git dan ter-commit ke dalam riwayat repositori.
+- GitHub Secret Scanning & Push Protection secara otomatis memblokir push apapun yang memuat format Client Secret Google OAuth aktif demi mencegah kebocoran kredensial ke publik.
 
-- **Cara Verifikasi**:
-  1. Server Next.js direstart di port 3000 (`npm run dev`) dan berhasil memuat `GOOGLE_CLIENT_ID` serta `GOOGLE_CLIENT_SECRET` dari `.env.local`.
-  2. Endpoint `/api/health?type=liveness` dan `/api/health?type=readiness` merespons `200 OK` secara instan.
-  3. `npm run typecheck` (`tsc --noEmit`) lolos 100% tanpa error.
-  4. `npm run lint` (`eslint`) lolos 0 error.
-  5. Pengujian Google Calendar (`vitest run tests/unit/google-calendar/google-oauth.test.ts tests/integration/google-calendar/outbox-worker.test.ts tests/integration/google-calendar/conflicts-disconnect.test.ts tests/integration/google-calendar/webhook-freebusy.test.ts`) lolos 18/18 tests tanpa mencemari data bisnis utama.
+---
+
+## 3. Tindakan Perbaikan (Resolution Steps)
+1. **Rebase Interaktif & Pembersihan Riwayat Komit**:
+   - Menjalankan rebase interaktif dari basis komit (`git rebase -i ba00ea1`) dengan mode `edit` pada komit yang memuat rahasia.
+   - Mengganti nilai rahasia di `.env.example` dengan placeholder aman:
+     ```env
+     GOOGLE_CLIENT_ID="your-google-client-id.apps.googleusercontent.com"
+     GOOGLE_CLIENT_SECRET="your-google-client-secret"
+     ```
+   - Meng-amend komit tersebut (`git commit --amend --no-edit`) dan melanjutkan rebase (`git rebase --continue`) ke seluruh komit turunannya (`739d836` dan `62b5a11`).
+2. **Audit Verifikasi Riwayat Git**:
+   - Memastikan tidak ada sisa string kredensial (`git log -S "916790710623"` dan `git log -S "GOCSPX"`) di seluruh riwayat branch `v1`.
+3. **Eksekusi Push Ulang**:
+   - Menjalankan `git push -f origin v1` dan push berhasil diterima 100% oleh GitHub tanpa penolakan.
+
+---
+
+## 4. Cara Mencegah di Masa Depan
+- Berkas `.env.example` HANYA boleh berisi nama variabel dengan nilai placeholder/dummy (misalnya `your-key-here` atau `dummy_token`). Jangan pernah menyalin isi `.env` aktif langsung ke `.env.example`.
+- Tambahkan aturan permanen pada knowledge base DevOps & Backend agar selalu memeriksa isi `.env.example` sebelum melakukan commit.
