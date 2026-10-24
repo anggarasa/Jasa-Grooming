@@ -1,102 +1,180 @@
-# 🚀 Pipeline Developer Otonom Multi-Agent — untuk Antigravity (v2, hemat token)
+# TampilKit Booking — Basic Booking Template
+## Phase 08 — Final QA, Security, Performance & Production Readiness
 
-Tim development AI otonom (Scout, PM, Designer, Frontend, Backend, Mobile, QA, DevOps, Curator) yang tech-agnostic dan belajar dari setiap siklus kerja.
+TampilKit Booking adalah template web appointment booking berbasis *modular monolith* berstandar produksi yang dirancang untuk dapat digunakan ulang (*reusable*) pada beragam bisnis berbasis reservasi. Pada implementasi awal, template ini dikonfigurasikan untuk use-case **Jasa Pet Grooming** (**PawCare Grooming**).
 
-**v2** ditulis ulang supaya kuota tidak cepat habis. Pipeline sekarang memakai fitur native Antigravity, yaitu **custom subagents** dan **skills**, menggantikan pola "satu agent berperan sebagai semua persona dalam satu chat".
+Seluruh antarmuka publik menggunakan Bahasa Indonesia, sedangkan kode sumber, model basis data, dan dokumentasi teknis menggunakan Bahasa Inggris & Indonesia formal.
 
-## Kebutuhan
+---
 
-Versi Antigravity yang sudah mendukung **custom subagents** (`.agents/agents/`) dan **skills** (`.agents/skills/<nama>/SKILL.md`).
+## 1. Arsitektur & Teknologi
 
-> ⚠️ **Workflows (`.agents/workflows/`) dihentikan Antigravity pada 1 November 2026.** Setelah tanggal itu, `/startcycle` dkk. versi v1 tidak bisa dipanggil lagi. v2 sudah memakai skills.
+### Technology Stack
+- **Framework Web**: [Next.js](https://nextjs.org/) (App Router, React 19)
+- **Bahasa**: [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
+- **Runtime**: Node.js 24 LTS & npm
+- **Database & ORM**: PostgreSQL 15+ & [Prisma ORM](https://www.prisma.io/) v6.4+
+- **Object Storage**: [MinIO S3](https://min.io/) (Docker Desktop)
+- **Styling & UI**: [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/), Lucide React
+- **Validasi Schema**: [Zod](https://zod.dev/)
+- **Testing**: [Vitest](https://vitest.dev/) & React Testing Library
 
-## Instalasi (proyek baru)
+### Desain Sistem
+- **Font**: Geist Sans & Geist Mono
+- **Palet Warna**:
+  - Primary Navy (`#142C52`)
+  - Secondary Soft Blue (`#EAF2FF`)
+  - Accent Teal (`#0D9488`)
+  - Background (`#F8FAFC`) & Surface (`#FFFFFF`)
+  - Text (`#0F172A`) & Muted (`#64748B`)
 
-1. Copy `.agents/`, `production_artifacts/`, dan `app_build/` ke root proyek.
-2. Buka chat baru di workspace proyek, lalu ketik salah satu command:
-   ```
-   /startcycle Saya butuh aplikasi kasir untuk toko retail, ada web admin dan aplikasi mobile untuk kasir
-   /addfeature Tambahkan fitur export laporan penjualan ke Excel
-   /fixbug Tombol checkout tidak merespon saat keranjang lebih dari 10 item
-   /lanjut Setuju
-   ```
+---
 
-Commit `.agents/` ke git, termasuk `.agents/memory/`. Isinya memori bersama tim, bukan data pribadi.
+## 2. Struktur Proyek
 
-## Upgrade dari v1
-
-1. **Pindahkan pelajaran lama** (kalau Section B knowledge base Anda sudah berisi entry): salin entry Section B tiap file ke `.agents/memory/<agent>.md` (`frontend_knowledge.md` → `frontend.md`, dst). Section A tidak perlu dipindahkan karena sudah dirangkum ke file agent.
-2. **Hapus file v1** supaya tidak bentrok dan tidak ikut terbaca:
-   - `.agents/agents.md`
-   - `.agents/workflows/`
-   - `.agents/skills/onboarding/`, `pm/`, `design/`, `frontend/`, `backend/`, `mobile/`, `qa/`, `devops/`, `curator/`
-   - `.agents/knowledge/`
-   - `production_artifacts/Project_Context.md` (diganti `.agents/memory/scout.md`)
-3. Copy `.agents/` v2.
-
-## Struktur
-
+```text
+├── prisma/
+│   ├── schema.prisma             # Skema 10 model relasional PostgreSQL
+│   ├── migrations/               # Riwayat migrasi versioned Prisma
+│   └── seed.ts                   # Seed idempotent (PawCare Grooming & user)
+├── public/                       # Static assets
+├── src/
+│   ├── app/
+│   │   ├── api/health/route.ts   # Health check API (DB & MinIO connectivity)
+│   │   ├── globals.css           # Token Tailwind CSS & shadcn variables
+│   │   ├── layout.tsx            # Root layout & font Geist
+│   │   └── page.tsx              # Landing page publik PawCare Grooming
+│   ├── components/
+│   │   ├── common/               # Komponen spesifik fitur (Hero, Navbar, dll)
+│   │   └── ui/                   # Komponen fondasi shadcn/ui
+│   ├── config/
+│   │   ├── env.ts                # Validasi environment runtime Zod
+│   │   └── site.ts               # Metadata & navigasi situs
+│   ├── lib/
+│   │   ├── minio.ts              # Server-only S3 storage utility singleton
+│   │   ├── prisma.ts             # Singleton Prisma Client dev-safe
+│   │   └── utils.ts              # Helper kelas styling (clsx, tailwind-merge)
+│   └── modules/                  # Batas domain untuk fase mendatang
+├── tests/
+│   ├── integration/              # Health check integration tests
+│   ├── mocks/                    # Mocking server-only & SDK
+│   └── unit/                     # Unit test env, minio utility, homepage UI
+├── docs/
+│   ├── ARCHITECTURE.md           # Rincian arsitektur & alur data
+│   └── PHASE_01_REPORT.md        # Laporan lengkap implementasi Phase 01
+├── .env.example                  # Template konfigurasi environment tersanitasi
+├── .env.local                    # Konfigurasi kredensial lokal (diabaikan git)
+└── package.json                  # Script & dependensi proyek
 ```
-.agents/
-├── AGENTS.md                 # aturan global (selalu aktif), SENGAJA ±150 token
-├── agents/                   # 9 subagent, masing-masing punya context sendiri
-│   ├── scout.md              # model: flash
-│   ├── pm.md
-│   ├── designer.md
-│   ├── frontend.md
-│   ├── backend.md
-│   ├── mobile.md
-│   ├── qa.md
-│   ├── devops.md             # model: flash
-│   └── curator.md            # model: flash
-├── skills/                   # slash command orkestrator
-│   ├── startcycle/SKILL.md
-│   ├── addfeature/SKILL.md
-│   ├── fixbug/SKILL.md
-│   └── lanjut/SKILL.md       # BARU: lanjutkan siklus di chat baru
-└── memory/                   # pengganti Section B knowledge (self-learning)
-    ├── scout.md              # konteks proyek (pengganti Project_Context.md)
-    └── pm.md, designer.md, frontend.md, backend.md, mobile.md, qa.md, devops.md
-production_artifacts/         # STATUS.md, spesifikasi, design tokens, Bug_Report, QA_Findings
-app_build/                    # lokasi kode untuk proyek baru
+
+---
+
+## 3. Persyaratan Sistem & Konfigurasi Lokal
+
+- **Node.js**: versi 24 LTS atau terbaru (`node -v`)
+- **npm**: versi 11+ (`npm -v`)
+- **PostgreSQL**: instance lokal di port `5432`
+- **MinIO**: instance Docker Desktop lokal di port `9000` (API) & `9001` (Console)
+
+### Konfigurasi `.env.local`
+Salin template dari `.env.example`:
+```bash
+cp .env.example .env.local
 ```
 
-## Kenapa v1 boros, dan apa yang diubah
+Sesuaikan nilai koneksi:
+```env
+NODE_ENV="development"
+NEXT_PUBLIC_APP_NAME="TampilKit Booking"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-| Penyebab boros di v1 | Perubahan di v2 |
-| --- | --- |
-| **Satu chat untuk semua peran.** Spek, seluruh kode yang ditulis, hasil audit, dan log terminal menumpuk di satu context, lalu dikirim ulang ke model di **setiap** langkah. Langkah QA dan DevOps di akhir siklus jadi yang paling mahal. | Tiap peran berjalan sebagai **subagent dengan context kosong sendiri**. Chat utama hanya berisi skill orkestrator + balasan ringkas (maks ±15 baris) dari tiap subagent. |
-| **±44 KB instruksi** (`agents.md` + 9 skill peran + 7 knowledge base, ±11 ribu token) dibaca ke context yang sama selama satu siklus, lalu ikut terkirim ulang di setiap langkah sesudahnya. | Chat utama hanya memuat ±3,6 KB (AGENTS.md + skill command). Instruksi tiap peran (±2–3 KB) hanya dimuat di context subagent itu sendiri. |
-| **Section A knowledge** berisi banyak best practice umum yang sudah dikuasai model ("pakai semantic HTML", "test pyramid"). | Dirangkum jadi "standar wajib" pendek di tiap file agent. Yang dipertahankan hanya aturan yang sering dilewati model. |
-| **Semua langkah memakai model yang sama**, termasuk scan proyek, deploy, dan curator. | `scout`, `devops`, dan `curator` memakai `model: flash`. Peran yang butuh penalaran tetap `inherit`. |
-| **Engineer & QA menulis ulang file utuh** ("overwrite file yang bermasalah"). | Edit terarah (`replace_file_content`). Tulis file utuh hanya untuk file baru. |
-| **Log terminal & dev server** masuk penuh ke context. | Output command dibatasi (`tail -n 30/40`). Server dijalankan di background dan dicek lewat port/HTTP status. |
-| **PM bertanya dulu, lalu menulis spek, lalu minta approval.** Itu dua putaran. Revisi menulis ulang seluruh dokumen. | Pertanyaan terbuka digabung dengan permintaan persetujuan (satu putaran). Revisi hanya mengedit bagian terkait. Spek dibatasi ±120 baris (fitur ±50 baris). |
-| **`/fixbug`**: QA investigasi → engineer membaca ulang kode yang sama → QA verifikasi. | Engineer langsung mereproduksi dan memperbaiki dalam satu context. QA hanya dipanggil untuk perbaikan berisiko (auth/data/pembayaran, >2 file, atau belum terverifikasi). |
-| **Curator selalu jalan** dan membaca semua knowledge base. | Curator hanya membaca catatan dari agent + QA_Findings/Bug_Report. Di `/startcycle` dan `/addfeature` curator dilewati kalau tidak ada pelajaran baru. |
-| `QA_Findings.md` dan `project_context.md` terus bertambah. | `QA_Findings.md` & `Bug_Report.md` ditimpa tiap siklus (riwayat ada di git). Konteks proyek cukup satu file (`memory/scout.md`, maks ±50 baris). |
-| Siklus panjang harus selesai di satu chat. | `production_artifacts/STATUS.md` + `/lanjut`. Setelah menyetujui spek, atau kalau chat sudah panjang atau kuota habis, buka chat baru dan ketik `/lanjut Setuju`. Tidak ada langkah yang diulang. |
+DATABASE_URL="postgresql://postgres:anggara-sa@localhost:5432/tampilkit_booking?schema=public"
 
-## Tips pemakaian supaya kuota awet
+MINIO_ENDPOINT="localhost"
+MINIO_PORT="9000"
+MINIO_USE_SSL="false"
+MINIO_ACCESS_KEY="minioadmin"
+MINIO_SECRET_KEY="minioadmin"
+MINIO_BUCKET="tampilkit-booking"
+```
 
-1. **Satu command = satu chat.** Mulai chat baru untuk setiap `/startcycle`, `/addfeature`, `/fixbug`. Pakai `/lanjut` untuk meneruskan siklus yang tertunda di chat baru.
-2. **Pilih model chat utama yang hemat.** Chat utama hanya mengorkestrasi, jadi tidak perlu model paling mahal. Subagent ber-`model: inherit` ikut model ini. Model "thinking" kelas atas (mis. Opus) menghabiskan kuota jauh lebih cepat.
-3. **Deskripsi yang spesifik.** `/fixbug Tombol checkout di src/cart/Checkout.tsx tidak merespon saat item > 10` jauh lebih murah daripada "checkout error". Tempel pesan error kalau ada.
-4. Kalau Antigravity Anda punya pilihan mode Planning/Fast, pakai **Fast** untuk `/fixbug` dan `/lanjut`. Pipeline ini sudah punya dokumen rencana sendiri (spesifikasi), jadi rencana tambahan dari mode Planning sering dobel.
-5. Kalau tidak butuh review desain, tulis "lanjut tanpa review desain" saat menyetujui spek. Itu menghemat satu putaran.
+---
 
-## Kustomisasi
+## 4. Perintah Instalasi & Eksekusi
 
-- **Model per subagent**: ubah `model:` (`inherit`, `flash`, `pro`) di `.agents/agents/*.md`. Contoh: `designer` atau `qa` ke `flash` untuk lebih hemat, atau engineer ke `pro` untuk kualitas lebih tinggi.
-- **Aturan permanen**: edit badan file di `.agents/agents/*.md`. Curator tidak pernah mengubahnya.
+### 1. Instalasi Dependensi
+```bash
+npm install
+```
 
-## Troubleshooting
+### 2. Migrasi Basis Data & Client Generation
+Pastikan PostgreSQL sudah aktif, kemudian jalankan migrasi:
+```bash
+npm run db:migrate
+```
 
-- **Subagent macet / tidak pernah selesai.** Dokumentasi Antigravity menyebut nama tool yang salah eja di `tools:` bisa membuat subagent hang. Daftar tool di file agent memakai nama standar (`view_file`, `list_dir`, `find_by_name`, `grep_search`, `run_command`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`). Kalau versi Antigravity Anda memakai nama lain, sesuaikan atau hapus tool yang tidak dikenali.
-- **devops gagal install/menjalankan server.** Subagent default berjalan dengan `commandExecutionPolicy: sandbox`. Kalau sandbox memblokir akses jaringan/port di mesin Anda, tambahkan `commandExecutionPolicy` yang sesuai di `devops.md` (pilihan: `off`, `auto`, `eager`, `sandbox`).
-- **Command tidak muncul saat mengetik `/`.** Pastikan foldernya `.agents/skills/<nama>/SKILL.md` (huruf besar `SKILL.md`).
+### 3. Eksekusi Seed Data Awal (Idempotent)
+Mengisi data profil bisnis PawCare Grooming, kategori layanan, daftar layanan, dan akun pengembang:
+```bash
+npm run db:seed
+```
 
-## Batasan
+### 4. Eksekusi Pengujian (Testing)
+Jalankan suite pengujian lengkap dengan Vitest:
+```bash
+npm run test
+```
 
-- Ini bukan cara membuat kuota tidak terbatas. Pipeline ini mengurangi token yang terbuang (context menumpuk, instruksi dibaca berulang, model mahal untuk tugas ringan), supaya kuota dipakai untuk kerja yang produktif.
-- Setiap subagent tetap memakan token: ia membaca file yang dibutuhkannya sendiri karena tidak mewarisi context chat utama.
+### 5. Typecheck & Linter
+```bash
+npm run typecheck
+npm run lint
+```
+
+### 6. Menjalankan Aplikasi
+Mode pengembangan (*development*):
+```bash
+npm run dev
+```
+Buka browser di [http://localhost:3000](http://localhost:3000).
+
+Mode produksi (*production build & start*):
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 5. Health Check Endpoint
+
+Endpoint kesiapan sistem tersedia di:
+`GET /api/health`
+
+**Contoh Response Sukses (HTTP 200)**:
+```json
+{
+  "status": "ok",
+  "application": "tampilkit-booking",
+  "version": "0.1.0",
+  "timestamp": "2026-10-22T17:20:14.000Z",
+  "services": {
+    "database": "healthy",
+    "storage": "healthy"
+  }
+}
+```
+Jika basis data atau MinIO storage terputus, endpoint akan mengembalikan status HTTP `503` dengan pesan detail status layanan yang tersanitasi tanpa membocorkan credential.
+
+---
+
+## 6. Roadmap Fase Pengembangan
+
+- **Phase 01 — Project Foundation & Infrastructure** ✅ Selesai (Fondasi Next.js, Prisma, MinIO, UI Landing Page, Health Check, Test Suite).
+- **Phase 02 — Authentication & Role-Based Access** ✅ Selesai (Argon2id, Dual-JWT HttpOnly Cookies, Session Lineage & Token Reuse Detection, Admin Dashboard, Sessions Manager, Owner CLI).
+- **Phase 03 — Business Settings, Service Management & MinIO Media** ✅ Selesai (Profil Bisnis, Jam Operasional 7 hari & multi-break, Konfigurasi Booking, Katalog Layanan Decimal IDR & Kategori, Galeri Toko, Upload MinIO S3 dengan verifikasi magic bytes).
+- **Phase 04 — Public Grooming Website & Dynamic Service Catalog** ✅ Selesai (Website Publik Dinamis RSC, Katalog & Filter Layanan, Detail Layanan, Galeri Lightbox, Tentang Kami, Kontak & WhatsApp FAB, Technical SEO JSON-LD, Sitemap & Robots).
+- **Phase 05 — Booking Engine, Availability & Customer Reservation** ✅ Selesai (Availability slot generator, PostgreSQL advisory lock anti-double booking, Idempotensi, Guest Access Token, Wizard booking publik 6 langkah di `/booking`, `/booking/confirmation`, dan `/booking/manage`).
+- **Phase 06 — Admin Booking Dashboard & Appointment Management** ✅ Selesai (Dashboard overview 6 KPI harian riil, master booking table server-paginated, detail booking & snapshots, kalender Day/Week/Month dengan striped blocked-time, walk-in booking wizard, direktori pelanggan & anabul, manajemen pemblokiran waktu stasiun, audit logs, dan state machine status).
+- **Phase 07 — Google Calendar OAuth, FreeBusy & Bidirectional Synchronization** ✅ Selesai (OAuth 2.0 PKCE, enkripsi token AES-256-GCM, outbox queue & worker, sinkronisasi dua arah mutasi booking/block, integrasi Google FreeBusy fail-closed pada Availability Engine, webhook push notifications, incremental syncToken, dan dashboard rekonsiliasi konflik).
+- **Phase 08 — Final QA, Security, Performance & Production Readiness** ✅ Selesai (Audit regresi fungsional Journeys A–G, pengujian stres konkurensi PostgreSQL 10 skenario zero double-booking, hardening keamanan OWASP ASVS 5.0, performa p95 read < 55ms / write < 80ms, a11y WCAG 2.1 AA, SOP & skrip backup/restore drill, uji reusabilitas Studio Barber, paket runbook produksi lengkap, evaluasi GO/NO-GO).

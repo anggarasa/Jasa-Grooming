@@ -1,0 +1,1161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "TampilKit Booking Design Tokens",
+  "version": "1.0.0",
+  "description": "Design tokens for PawCare Grooming / TampilKit Booking modular appointment system",
+  "theme": {
+    "light": {
+      "colors": {
+        "background": "#F8FAFC",
+        "foreground": "#0F172A",
+        "card": {
+          "background": "#FFFFFF",
+          "foreground": "#0F172A",
+          "border": "#E2E8F0"
+        },
+        "popover": {
+          "background": "#FFFFFF",
+          "foreground": "#0F172A"
+        },
+        "primary": {
+          "DEFAULT": "#142C52",
+          "foreground": "#FFFFFF",
+          "hover": "#0E1E38",
+          "active": "#0A1628",
+          "subtle": "#EBF1F9"
+        },
+        "secondary": {
+          "DEFAULT": "#EAF2FF",
+          "foreground": "#142C52",
+          "hover": "#D8E6FE",
+          "active": "#C3D9FC"
+        },
+        "accent": {
+          "DEFAULT": "#0D9488",
+          "foreground": "#FFFFFF",
+          "hover": "#0B7A70",
+          "active": "#09625A",
+          "subtle": "#E6F6F5"
+        },
+        "muted": {
+          "DEFAULT": "#F1F5F9",
+          "foreground": "#64748B"
+        },
+        "destructive": {
+          "DEFAULT": "#DC2626",
+          "foreground": "#FFFFFF",
+          "hover": "#B91C1C",
+          "subtle": "#FEE2E2"
+        },
+        "success": {
+          "DEFAULT": "#16A34A",
+          "foreground": "#FFFFFF",
+          "hover": "#15803D",
+          "subtle": "#DCFCE7"
+        },
+        "warning": {
+          "DEFAULT": "#D97706",
+          "foreground": "#FFFFFF",
+          "hover": "#B45309",
+          "subtle": "#FEF3C7"
+        },
+        "info": {
+          "DEFAULT": "#0284C7",
+          "foreground": "#FFFFFF",
+          "hover": "#0369A1",
+          "subtle": "#E0F2FE"
+        },
+        "border": "#E2E8F0",
+        "input": "#E2E8F0",
+        "ring": "#0D9488",
+        "sidebar": {
+          "background": "#0F1E38",
+          "foreground": "#F8FAFC",
+          "border": "#1E2E4A",
+          "muted": "#94A3B8",
+          "hover": "#1B2F52",
+          "active": "#142C52",
+          "activeForeground": "#38BDF8",
+          "ring": "#0D9488"
+        },
+        "badge": {
+          "owner": {
+            "background": "#F3E8FF",
+            "foreground": "#6B21A8",
+            "border": "#DDD6FE"
+          },
+          "admin": {
+            "background": "#E0F2FE",
+            "foreground": "#0369A1",
+            "border": "#BAE6FD"
+          },
+          "sessionActive": {
+            "background": "#DCFCE7",
+            "foreground": "#15803D",
+            "border": "#BBF7D0",
+            "dot": "#16A34A"
+          },
+          "open": {
+            "background": "#DCFCE7",
+            "foreground": "#15803D",
+            "border": "#BBF7D0",
+            "dot": "#16A34A"
+          },
+          "closed": {
+            "background": "#F1F5F9",
+            "foreground": "#475569",
+            "border": "#CBD5E1",
+            "dot": "#94A3B8"
+          },
+          "active": {
+            "background": "#E6F6F5",
+            "foreground": "#0F766E",
+            "border": "#99F6E4"
+          },
+          "inactive": {
+            "background": "#F1F5F9",
+            "foreground": "#64748B",
+            "border": "#E2E8F0"
+          },
+          "breakSlot": {
+            "background": "#FEF3C7",
+            "foreground": "#92400E",
+            "border": "#FDE68A"
+          },
+          "duration": {
+            "background": "#EBF1F9",
+            "foreground": "#142C52",
+            "border": "#AFC7E7"
+          },
+          "bookingPending": {
+            "background": "#FEF3C7",
+            "foreground": "#92400E",
+            "border": "#FDE68A",
+            "dot": "#D97706"
+          },
+          "bookingConfirmed": {
+            "background": "#DBEAFE",
+            "foreground": "#1D4ED8",
+            "border": "#BFDBFE",
+            "dot": "#2563EB"
+          },
+          "bookingCheckedIn": {
+            "background": "#F3E8FF",
+            "foreground": "#6B21A8",
+            "border": "#DDD6FE",
+            "dot": "#7E22CE"
+          },
+          "bookingInProgress": {
+            "background": "#E0F2FE",
+            "foreground": "#0369A1",
+            "border": "#BAE6FD",
+            "dot": "#0284C7"
+          },
+          "bookingCompleted": {
+            "background": "#DCFCE7",
+            "foreground": "#15803D",
+            "border": "#BBF7D0",
+            "dot": "#16A34A"
+          },
+          "bookingCancelled": {
+            "background": "#FEE2E2",
+            "foreground": "#991B1B",
+            "border": "#FECACA",
+            "dot": "#DC2626"
+          },
+          "bookingNoShow": {
+            "background": "#F1F5F9",
+            "foreground": "#475569",
+            "border": "#CBD5E1",
+            "dot": "#64748B"
+          },
+          "walkIn": {
+            "background": "#FFEDD5",
+            "foreground": "#9A3412",
+            "border": "#FED7AA",
+            "dot": "#EA580C"
+          },
+          "syncNotConnected": {
+            "background": "#F1F5F9",
+            "foreground": "#475569",
+            "border": "#CBD5E1",
+            "dot": "#94A3B8"
+          },
+          "syncConnected": {
+            "background": "#DCFCE7",
+            "foreground": "#15803D",
+            "border": "#BBF7D0",
+            "dot": "#16A34A"
+          },
+          "syncSyncing": {
+            "background": "#E0F2FE",
+            "foreground": "#0369A1",
+            "border": "#BAE6FD",
+            "dot": "#0284C7"
+          },
+          "syncDegraded": {
+            "background": "#FEF3C7",
+            "foreground": "#92400E",
+            "border": "#FDE68A",
+            "dot": "#D97706"
+          },
+          "syncReauthRequired": {
+            "background": "#FFEDD5",
+            "foreground": "#9A3412",
+            "border": "#FED7AA",
+            "dot": "#EA580C"
+          },
+          "syncError": {
+            "background": "#FEE2E2",
+            "foreground": "#991B1B",
+            "border": "#FECACA",
+            "dot": "#DC2626"
+          },
+          "jobPending": {
+            "background": "#FEF3C7",
+            "foreground": "#92400E",
+            "border": "#FDE68A",
+            "dot": "#D97706"
+          },
+          "jobProcessing": {
+            "background": "#E0F2FE",
+            "foreground": "#0369A1",
+            "border": "#BAE6FD",
+            "dot": "#0284C7"
+          },
+          "jobCompleted": {
+            "background": "#DCFCE7",
+            "foreground": "#15803D",
+            "border": "#BBF7D0",
+            "dot": "#16A34A"
+          },
+          "jobFailed": {
+            "background": "#FEE2E2",
+            "foreground": "#991B1B",
+            "border": "#FECACA",
+            "dot": "#DC2626"
+          },
+          "jobDeadLetter": {
+            "background": "#F3E8FF",
+            "foreground": "#6B21A8",
+            "border": "#DDD6FE",
+            "dot": "#9333EA"
+          },
+          "conflictUnresolved": {
+            "background": "#FFFBEB",
+            "foreground": "#B45309",
+            "border": "#FCD34D",
+            "dot": "#D97706"
+          },
+          "conflictResolvedLocal": {
+            "background": "#E6F6F5",
+            "foreground": "#0F766E",
+            "border": "#99F6E4",
+            "dot": "#0D9488"
+          },
+          "conflictResolvedGoogle": {
+            "background": "#DBEAFE",
+            "foreground": "#1D4ED8",
+            "border": "#BFDBFE",
+            "dot": "#2563EB"
+          },
+          "conflictManualOverride": {
+            "background": "#EEF2FF",
+            "foreground": "#3730A3",
+            "border": "#C7D2FE",
+            "dot": "#4F46E5"
+          },
+          "conflictIgnored": {
+            "background": "#F1F5F9",
+            "foreground": "#475569",
+            "border": "#CBD5E1",
+            "dot": "#94A3B8"
+          },
+          "conflictOverlapping": {
+            "background": "#FEF3C7",
+            "foreground": "#92400E",
+            "border": "#FDE68A"
+          },
+          "conflictExternalClash": {
+            "background": "#FEE2E2",
+            "foreground": "#991B1B",
+            "border": "#FECACA"
+          },
+          "conflictTimezoneMismatch": {
+            "background": "#E0F2FE",
+            "foreground": "#0369A1",
+            "border": "#BAE6FD"
+          }
+        },
+        "alert": {
+          "error": {
+            "background": "#FEF2F2",
+            "foreground": "#991B1B",
+            "border": "#FECACA"
+          },
+          "warning": {
+            "background": "#FFFBEB",
+            "foreground": "#92400E",
+            "border": "#FDE68A"
+          },
+          "success": {
+            "background": "#F0FDF4",
+            "foreground": "#166534",
+            "border": "#BBF7D0"
+          },
+          "info": {
+            "background": "#F0F9FF",
+            "foreground": "#075985",
+            "border": "#BAE6FD"
+          }
+        },
+        "form": {
+          "label": "#334155",
+          "helper": "#64748B",
+          "borderError": "#DC2626",
+          "errorText": "#DC2626",
+          "placeholder": "#94A3B8"
+        },
+        "currencyInput": {
+          "prefixBackground": "#F1F5F9",
+          "prefixForeground": "#475569",
+          "prefixBorder": "#CBD5E1"
+        },
+        "table": {
+          "headerBackground": "#F8FAFC",
+          "headerForeground": "#475569",
+          "rowHover": "#F1F5F9",
+          "border": "#E2E8F0"
+        },
+        "toggle": {
+          "trackChecked": "#0D9488",
+          "trackUnchecked": "#CBD5E1",
+          "thumb": "#FFFFFF"
+        },
+        "dropzone": {
+          "background": "#F8FAFC",
+          "border": "#CBD5E1",
+          "hoverBackground": "#F1F5F9",
+          "activeBackground": "#E6F6F5",
+          "activeBorder": "#0D9488",
+          "icon": "#0D9488",
+          "text": "#1E293B",
+          "hint": "#64748B"
+        },
+        "uploadProgress": {
+          "track": "#E2E8F0",
+          "fill": "#0D9488"
+        },
+        "thumbnail": {
+          "background": "#F1F5F9",
+          "border": "#E2E8F0",
+          "overlay": "rgba(15, 23, 42, 0.65)",
+          "overlayForeground": "#FFFFFF",
+          "orderBadgeBackground": "rgba(15, 23, 42, 0.75)",
+          "orderBadgeForeground": "#FFFFFF"
+        },
+        "schedule": {
+          "dayOpenBackground": "#FFFFFF",
+          "dayClosedBackground": "#F8FAFC",
+          "breakItemBg": "#FFFBEB",
+          "breakItemBorder": "#FDE68A"
+        },
+        "whatsapp": {
+          "DEFAULT": "#25D366",
+          "foreground": "#FFFFFF",
+          "hover": "#20BA59",
+          "active": "#1DA851",
+          "shadow": "0 10px 20px -3px rgba(37, 211, 102, 0.35)"
+        },
+        "pill": {
+          "inactiveBackground": "#F1F5F9",
+          "inactiveForeground": "#334155",
+          "inactiveBorder": "#E2E8F0",
+          "inactiveHover": "#E2E8F0",
+          "activeBackground": "#142C52",
+          "activeForeground": "#FFFFFF",
+          "activeBorder": "#142C52"
+        },
+        "serviceCard": {
+          "background": "#FFFFFF",
+          "border": "#E2E8F0",
+          "hoverBorder": "#0D9488",
+          "hoverShadow": "0 10px 25px -5px rgba(20, 44, 82, 0.08)",
+          "priceForeground": "#142C52"
+        },
+        "breadcrumb": {
+          "foreground": "#64748B",
+          "activeForeground": "#0F172A",
+          "separator": "#94A3B8"
+        },
+        "lightbox": {
+          "backdrop": "rgba(15, 23, 42, 0.92)",
+          "foreground": "#FFFFFF",
+          "buttonBackground": "rgba(255, 255, 255, 0.12)",
+          "buttonHover": "rgba(255, 255, 255, 0.24)",
+          "buttonForeground": "#FFFFFF"
+        },
+        "wizard": {
+          "stepDefault": {
+            "background": "#F1F5F9",
+            "foreground": "#64748B",
+            "border": "#CBD5E1"
+          },
+          "stepActive": {
+            "background": "#142C52",
+            "foreground": "#FFFFFF",
+            "border": "#142C52",
+            "ring": "#0D9488"
+          },
+          "stepCompleted": {
+            "background": "#E6F6F5",
+            "foreground": "#0F766E",
+            "border": "#99F6E4",
+            "icon": "#0D9488"
+          },
+          "connectorDefault": "#E2E8F0",
+          "connectorCompleted": "#0D9488"
+        },
+        "timeSlot": {
+          "available": {
+            "background": "#FFFFFF",
+            "foreground": "#0F172A",
+            "border": "#CBD5E1",
+            "hoverBackground": "#EBF1F9",
+            "hoverBorder": "#0D9488"
+          },
+          "selected": {
+            "background": "#142C52",
+            "foreground": "#FFFFFF",
+            "border": "#142C52",
+            "shadow": "0 4px 10px -2px rgba(20, 44, 82, 0.25)"
+          },
+          "unavailable": {
+            "background": "#F1F5F9",
+            "foreground": "#94A3B8",
+            "border": "#E2E8F0"
+          }
+        },
+        "bookingSummary": {
+          "background": "#FFFFFF",
+          "border": "#E2E8F0",
+          "headerBackground": "#F8FAFC",
+          "headerForeground": "#0F172A",
+          "divider": "#E2E8F0",
+          "accentBorder": "#0D9488",
+          "highlightBackground": "#EBF1F9",
+          "highlightForeground": "#142C52"
+        },
+        "kpiCard": {
+          "background": "#FFFFFF",
+          "foreground": "#0F172A",
+          "border": "#E2E8F0",
+          "title": "#64748B",
+          "value": "#0F172A",
+          "subtext": "#94A3B8",
+          "hoverBorder": "#CBD5E1",
+          "hoverShadow": "0 4px 12px -2px rgba(15, 23, 42, 0.06)",
+          "accentToday": "#0D9488",
+          "accentConfirmed": "#2563EB",
+          "accentCheckedIn": "#7E22CE",
+          "accentInProgress": "#0284C7",
+          "accentCompleted": "#16A34A",
+          "accentCancelled": "#DC2626"
+        },
+        "calendar": {
+          "gridBorder": "#E2E8F0",
+          "cellBackground": "#FFFFFF",
+          "cellAltBackground": "#F8FAFC",
+          "cellOutOfMonth": "#F1F5F9",
+          "cellOutOfMonthForeground": "#94A3B8",
+          "cellTodayBackground": "#E6F6F5",
+          "cellTodayForeground": "#0F766E",
+          "cellTodayBorder": "#0D9488",
+          "cellSelectedBackground": "#EBF1F9",
+          "cellSelectedBorder": "#142C52",
+          "nowIndicator": "#DC2626",
+          "timeColumnBackground": "#F8FAFC",
+          "timeColumnForeground": "#64748B",
+          "timeColumnBorder": "#E2E8F0",
+          "headerBackground": "#FFFFFF",
+          "headerForeground": "#0F172A",
+          "headerBorder": "#E2E8F0"
+        },
+        "blockedTime": {
+          "background": "#F8FAFC",
+          "foreground": "#475569",
+          "border": "#CBD5E1",
+          "stripeColor": "#E2E8F0",
+          "stripeBackground": "#F1F5F9",
+          "badgeBackground": "#FEF2F2",
+          "badgeForeground": "#991B1B",
+          "badgeBorder": "#FECACA"
+        },
+        "calendarSync": {
+          "diffLocalBackground": "#F0FDFA",
+          "diffLocalForeground": "#0F766E",
+          "diffLocalBorder": "#99F6E4",
+          "diffGoogleBackground": "#EFF6FF",
+          "diffGoogleForeground": "#1D4ED8",
+          "diffGoogleBorder": "#BFDBFE",
+          "latencyOk": "#16A34A",
+          "latencyWarning": "#D97706",
+          "latencyError": "#DC2626"
+        }
+      }
+    },
+    "dark": {
+      "colors": {
+        "background": "#0B132B",
+        "foreground": "#F8FAFC",
+        "card": {
+          "background": "#111C3D",
+          "foreground": "#F8FAFC",
+          "border": "#1E293B"
+        },
+        "popover": {
+          "background": "#111C3D",
+          "foreground": "#F8FAFC"
+        },
+        "primary": {
+          "DEFAULT": "#3B82F6",
+          "foreground": "#FFFFFF",
+          "hover": "#2563EB",
+          "active": "#1D4ED8",
+          "subtle": "#172554"
+        },
+        "secondary": {
+          "DEFAULT": "#1E293B",
+          "foreground": "#E2E8F0",
+          "hover": "#334155",
+          "active": "#475569"
+        },
+        "accent": {
+          "DEFAULT": "#14B8A6",
+          "foreground": "#042F2E",
+          "hover": "#0D9488",
+          "active": "#0F766E",
+          "subtle": "#134E4A"
+        },
+        "muted": {
+          "DEFAULT": "#1E293B",
+          "foreground": "#94A3B8"
+        },
+        "destructive": {
+          "DEFAULT": "#EF4444",
+          "foreground": "#FFFFFF",
+          "hover": "#DC2626",
+          "subtle": "#450A0A"
+        },
+        "success": {
+          "DEFAULT": "#22C55E",
+          "foreground": "#052E16",
+          "hover": "#16A34A",
+          "subtle": "#14532D"
+        },
+        "warning": {
+          "DEFAULT": "#F59E0B",
+          "foreground": "#451A03",
+          "hover": "#D97706",
+          "subtle": "#78350F"
+        },
+        "info": {
+          "DEFAULT": "#38BDF8",
+          "foreground": "#082F49",
+          "hover": "#0284C7",
+          "subtle": "#0C4A6E"
+        },
+        "border": "#1E293B",
+        "input": "#1E293B",
+        "ring": "#14B8A6",
+        "sidebar": {
+          "background": "#070E20",
+          "foreground": "#F8FAFC",
+          "border": "#16233B",
+          "muted": "#64748B",
+          "hover": "#111C3D",
+          "active": "#172554",
+          "activeForeground": "#38BDF8",
+          "ring": "#14B8A6"
+        },
+        "badge": {
+          "owner": {
+            "background": "#3B0764",
+            "foreground": "#D8B4FE",
+            "border": "#581C87"
+          },
+          "admin": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0369A1"
+          },
+          "sessionActive": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D",
+            "dot": "#22C55E"
+          },
+          "open": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D",
+            "dot": "#22C55E"
+          },
+          "closed": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155",
+            "dot": "#64748B"
+          },
+          "active": {
+            "background": "#134E4A",
+            "foreground": "#99F6E4",
+            "border": "#0F766E"
+          },
+          "inactive": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155"
+          },
+          "breakSlot": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F"
+          },
+          "duration": {
+            "background": "#172554",
+            "foreground": "#93C5FD",
+            "border": "#1E3A8A"
+          },
+          "bookingPending": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F",
+            "dot": "#F59E0B"
+          },
+          "bookingConfirmed": {
+            "background": "#172554",
+            "foreground": "#93C5FD",
+            "border": "#1E3A8A",
+            "dot": "#3B82F6"
+          },
+          "bookingCheckedIn": {
+            "background": "#3B0764",
+            "foreground": "#E9D5FF",
+            "border": "#581C87",
+            "dot": "#A855F7"
+          },
+          "bookingInProgress": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0C4A6E",
+            "dot": "#38BDF8"
+          },
+          "bookingCompleted": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D",
+            "dot": "#22C55E"
+          },
+          "bookingCancelled": {
+            "background": "#450A0A",
+            "foreground": "#FCA5A5",
+            "border": "#7F1D1D",
+            "dot": "#EF4444"
+          },
+          "bookingNoShow": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155",
+            "dot": "#64748B"
+          },
+          "walkIn": {
+            "background": "#431407",
+            "foreground": "#FDBA74",
+            "border": "#7C2D12",
+            "dot": "#F97316"
+          },
+          "syncNotConnected": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155",
+            "dot": "#64748B"
+          },
+          "syncConnected": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D",
+            "dot": "#22C55E"
+          },
+          "syncSyncing": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0C4A6E",
+            "dot": "#38BDF8"
+          },
+          "syncDegraded": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F",
+            "dot": "#F59E0B"
+          },
+          "syncReauthRequired": {
+            "background": "#431407",
+            "foreground": "#FDBA74",
+            "border": "#7C2D12",
+            "dot": "#F97316"
+          },
+          "syncError": {
+            "background": "#450A0A",
+            "foreground": "#FCA5A5",
+            "border": "#7F1D1D",
+            "dot": "#EF4444"
+          },
+          "jobPending": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F",
+            "dot": "#F59E0B"
+          },
+          "jobProcessing": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0C4A6E",
+            "dot": "#38BDF8"
+          },
+          "jobCompleted": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D",
+            "dot": "#22C55E"
+          },
+          "jobFailed": {
+            "background": "#450A0A",
+            "foreground": "#FCA5A5",
+            "border": "#7F1D1D",
+            "dot": "#EF4444"
+          },
+          "jobDeadLetter": {
+            "background": "#3B0764",
+            "foreground": "#E9D5FF",
+            "border": "#581C87",
+            "dot": "#C084FC"
+          },
+          "conflictUnresolved": {
+            "background": "#451A03",
+            "foreground": "#FDE68A",
+            "border": "#78350F",
+            "dot": "#F59E0B"
+          },
+          "conflictResolvedLocal": {
+            "background": "#134E4A",
+            "foreground": "#99F6E4",
+            "border": "#0F766E",
+            "dot": "#14B8A6"
+          },
+          "conflictResolvedGoogle": {
+            "background": "#172554",
+            "foreground": "#93C5FD",
+            "border": "#1E3A8A",
+            "dot": "#3B82F6"
+          },
+          "conflictManualOverride": {
+            "background": "#1E1B4B",
+            "foreground": "#C7D2FE",
+            "border": "#3730A3",
+            "dot": "#818CF8"
+          },
+          "conflictIgnored": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155",
+            "dot": "#64748B"
+          },
+          "conflictOverlapping": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F"
+          },
+          "conflictExternalClash": {
+            "background": "#450A0A",
+            "foreground": "#FCA5A5",
+            "border": "#7F1D1D"
+          },
+          "conflictTimezoneMismatch": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0C4A6E"
+          }
+        },
+        "alert": {
+          "error": {
+            "background": "#450A0A",
+            "foreground": "#FCA5A5",
+            "border": "#7F1D1D"
+          },
+          "warning": {
+            "background": "#451A03",
+            "foreground": "#FCD34D",
+            "border": "#78350F"
+          },
+          "success": {
+            "background": "#052E16",
+            "foreground": "#86EFAC",
+            "border": "#14532D"
+          },
+          "info": {
+            "background": "#082F49",
+            "foreground": "#7DD3FC",
+            "border": "#0C4A6E"
+          }
+        },
+        "form": {
+          "label": "#CBD5E1",
+          "helper": "#94A3B8",
+          "borderError": "#EF4444",
+          "errorText": "#EF4444",
+          "placeholder": "#64748B"
+        },
+        "currencyInput": {
+          "prefixBackground": "#1E293B",
+          "prefixForeground": "#94A3B8",
+          "prefixBorder": "#334155"
+        },
+        "table": {
+          "headerBackground": "#0B132B",
+          "headerForeground": "#94A3B8",
+          "rowHover": "#1E293B",
+          "border": "#1E293B"
+        },
+        "toggle": {
+          "trackChecked": "#14B8A6",
+          "trackUnchecked": "#334155",
+          "thumb": "#FFFFFF"
+        },
+        "dropzone": {
+          "background": "#111C3D",
+          "border": "#334155",
+          "hoverBackground": "#1E293B",
+          "activeBackground": "#134E4A",
+          "activeBorder": "#14B8A6",
+          "icon": "#14B8A6",
+          "text": "#F8FAFC",
+          "hint": "#94A3B8"
+        },
+        "uploadProgress": {
+          "track": "#1E293B",
+          "fill": "#14B8A6"
+        },
+        "thumbnail": {
+          "background": "#1E293B",
+          "border": "#334155",
+          "overlay": "rgba(2, 6, 23, 0.75)",
+          "overlayForeground": "#F8FAFC",
+          "orderBadgeBackground": "rgba(2, 6, 23, 0.85)",
+          "orderBadgeForeground": "#F8FAFC"
+        },
+        "schedule": {
+          "dayOpenBackground": "#111C3D",
+          "dayClosedBackground": "#0B132B",
+          "breakItemBg": "#451A03",
+          "breakItemBorder": "#78350F"
+        },
+        "whatsapp": {
+          "DEFAULT": "#25D366",
+          "foreground": "#FFFFFF",
+          "hover": "#22BF5B",
+          "active": "#1DA851",
+          "shadow": "0 10px 20px -3px rgba(37, 211, 102, 0.25)"
+        },
+        "pill": {
+          "inactiveBackground": "#1E293B",
+          "inactiveForeground": "#CBD5E1",
+          "inactiveBorder": "#334155",
+          "inactiveHover": "#334155",
+          "activeBackground": "#14B8A6",
+          "activeForeground": "#042F2E",
+          "activeBorder": "#14B8A6"
+        },
+        "serviceCard": {
+          "background": "#111C3D",
+          "border": "#1E293B",
+          "hoverBorder": "#14B8A6",
+          "hoverShadow": "0 10px 25px -5px rgba(0, 0, 0, 0.4)",
+          "priceForeground": "#38BDF8"
+        },
+        "breadcrumb": {
+          "foreground": "#94A3B8",
+          "activeForeground": "#F8FAFC",
+          "separator": "#475569"
+        },
+        "lightbox": {
+          "backdrop": "rgba(2, 6, 23, 0.95)",
+          "foreground": "#F8FAFC",
+          "buttonBackground": "rgba(255, 255, 255, 0.10)",
+          "buttonHover": "rgba(255, 255, 255, 0.20)",
+          "buttonForeground": "#F8FAFC"
+        },
+        "wizard": {
+          "stepDefault": {
+            "background": "#1E293B",
+            "foreground": "#94A3B8",
+            "border": "#334155"
+          },
+          "stepActive": {
+            "background": "#14B8A6",
+            "foreground": "#042F2E",
+            "border": "#14B8A6",
+            "ring": "#38BDF8"
+          },
+          "stepCompleted": {
+            "background": "#134E4A",
+            "foreground": "#99F6E4",
+            "border": "#0F766E",
+            "icon": "#14B8A6"
+          },
+          "connectorDefault": "#334155",
+          "connectorCompleted": "#14B8A6"
+        },
+        "timeSlot": {
+          "available": {
+            "background": "#111C3D",
+            "foreground": "#F8FAFC",
+            "border": "#334155",
+            "hoverBackground": "#172554",
+            "hoverBorder": "#14B8A6"
+          },
+          "selected": {
+            "background": "#14B8A6",
+            "foreground": "#042F2E",
+            "border": "#14B8A6",
+            "shadow": "0 4px 10px -2px rgba(20, 184, 166, 0.25)"
+          },
+          "unavailable": {
+            "background": "#0B132B",
+            "foreground": "#475569",
+            "border": "#1E293B"
+          }
+        },
+        "bookingSummary": {
+          "background": "#111C3D",
+          "border": "#1E293B",
+          "headerBackground": "#0B132B",
+          "headerForeground": "#F8FAFC",
+          "divider": "#1E293B",
+          "accentBorder": "#14B8A6",
+          "highlightBackground": "#172554",
+          "highlightForeground": "#93C5FD"
+        },
+        "kpiCard": {
+          "background": "#111C3D",
+          "foreground": "#F8FAFC",
+          "border": "#1E293B",
+          "title": "#94A3B8",
+          "value": "#F8FAFC",
+          "subtext": "#64748B",
+          "hoverBorder": "#334155",
+          "hoverShadow": "0 4px 12px -2px rgba(0, 0, 0, 0.3)",
+          "accentToday": "#14B8A6",
+          "accentConfirmed": "#3B82F6",
+          "accentCheckedIn": "#A855F7",
+          "accentInProgress": "#38BDF8",
+          "accentCompleted": "#22C55E",
+          "accentCancelled": "#EF4444"
+        },
+        "calendar": {
+          "gridBorder": "#1E293B",
+          "cellBackground": "#111C3D",
+          "cellAltBackground": "#0B132B",
+          "cellOutOfMonth": "#070E20",
+          "cellOutOfMonthForeground": "#475569",
+          "cellTodayBackground": "#134E4A",
+          "cellTodayForeground": "#99F6E4",
+          "cellTodayBorder": "#14B8A6",
+          "cellSelectedBackground": "#172554",
+          "cellSelectedBorder": "#3B82F6",
+          "nowIndicator": "#EF4444",
+          "timeColumnBackground": "#0B132B",
+          "timeColumnForeground": "#94A3B8",
+          "timeColumnBorder": "#1E293B",
+          "headerBackground": "#111C3D",
+          "headerForeground": "#F8FAFC",
+          "headerBorder": "#1E293B"
+        },
+        "blockedTime": {
+          "background": "#0F172A",
+          "foreground": "#94A3B8",
+          "border": "#334155",
+          "stripeColor": "#1E293B",
+          "stripeBackground": "#0F172A",
+          "badgeBackground": "#450A0A",
+          "badgeForeground": "#FCA5A5",
+          "badgeBorder": "#7F1D1D"
+        },
+        "calendarSync": {
+          "diffLocalBackground": "#134E4A",
+          "diffLocalForeground": "#99F6E4",
+          "diffLocalBorder": "#0F766E",
+          "diffGoogleBackground": "#172554",
+          "diffGoogleForeground": "#93C5FD",
+          "diffGoogleBorder": "#1E3A8A",
+          "latencyOk": "#22C55E",
+          "latencyWarning": "#F59E0B",
+          "latencyError": "#EF4444"
+        }
+      }
+    }
+  },
+  "palette": {
+    "neutral": {
+      "50": "#F8FAFC",
+      "100": "#F1F5F9",
+      "200": "#E2E8F0",
+      "300": "#CBD5E1",
+      "500": "#64748B",
+      "700": "#334155",
+      "900": "#0F172A",
+      "950": "#020617"
+    },
+    "navy": {
+      "50": "#EBF1F9",
+      "100": "#D7E3F3",
+      "200": "#AFC7E7",
+      "500": "#2C5282",
+      "900": "#142C52",
+      "950": "#0A1628"
+    },
+    "teal": {
+      "50": "#F0FDFA",
+      "100": "#CCFBF1",
+      "200": "#99F6E4",
+      "500": "#14B8A6",
+      "600": "#0D9488",
+      "700": "#0F766E",
+      "900": "#134E4A"
+    },
+    "purple": {
+      "50": "#FAF5FF",
+      "100": "#F3E8FF",
+      "200": "#E9D5FF",
+      "700": "#6B21A8",
+      "800": "#581C87",
+      "950": "#3B0764"
+    },
+    "indigo": {
+      "50": "#EEF2FF",
+      "100": "#E0E7FF",
+      "200": "#C7D2FE",
+      "500": "#6366F1",
+      "600": "#4F46E5",
+      "700": "#4338CA",
+      "800": "#3730A3",
+      "950": "#1E1B4B"
+    },
+    "blue": {
+      "50": "#EFF6FF",
+      "100": "#DBEAFE",
+      "200": "#BFDBFE",
+      "500": "#3B82F6",
+      "600": "#2563EB",
+      "700": "#1D4ED8",
+      "950": "#172554"
+    },
+    "sky": {
+      "50": "#F0F9FF",
+      "100": "#E0F2FE",
+      "200": "#BAE6FD",
+      "500": "#0EA5E9",
+      "600": "#0284C7",
+      "700": "#0369A1",
+      "800": "#075985",
+      "950": "#082F49"
+    },
+    "orange": {
+      "50": "#FFF7ED",
+      "100": "#FFEDD5",
+      "200": "#FED7AA",
+      "500": "#F97316",
+      "600": "#EA580C",
+      "700": "#C2410C",
+      "800": "#9A3412",
+      "950": "#431407"
+    },
+    "whatsapp": {
+      "500": "#25D366",
+      "600": "#20BA59",
+      "700": "#1DA851"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "sans": "var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      "mono": "var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace"
+    },
+    "scale": {
+      "xs": { "fontSize": "0.75rem", "lineHeight": "1rem" },
+      "sm": { "fontSize": "0.875rem", "lineHeight": "1.25rem" },
+      "base": { "fontSize": "1rem", "lineHeight": "1.5rem" },
+      "lg": { "fontSize": "1.125rem", "lineHeight": "1.75rem" },
+      "xl": { "fontSize": "1.25rem", "lineHeight": "1.75rem" },
+      "2xl": { "fontSize": "1.5rem", "lineHeight": "2rem" },
+      "3xl": { "fontSize": "1.875rem", "lineHeight": "2.25rem" },
+      "4xl": { "fontSize": "2.25rem", "lineHeight": "2.5rem" }
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  "spacing": {
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px",
+    "24": "96px"
+  },
+  "radius": {
+    "none": "0px",
+    "sm": "0.25rem",
+    "md": "0.5rem",
+    "lg": "0.75rem",
+    "xl": "1rem",
+    "full": "9999px"
+  },
+  "aspectRatio": {
+    "square": "1 / 1",
+    "thumbnail": "4 / 3",
+    "banner": "16 / 9"
+  },
+  "shadows": {
+    "sm": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+    "md": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+    "lg": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+    "xl": "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)"
+  },
+  "states": {
+    "focusRing": "2px solid #0D9488",
+    "focusRingOffset": "2px",
+    "disabledOpacity": 0.5,
+    "hoverTransition": "all 150ms cubic-bezier(0.4, 0, 0.2, 1)"
+  },
+  "mobile": {
+    "minTapTarget": "44px",
+    "floatingButtonSize": "56px",
+    "safeAreaBottom": "env(safe-area-inset-bottom, 16px)"
+  },
+  "zIndex": {
+    "header": 50,
+    "floatingCta": 60,
+    "lightbox": 100
+  }
+}
