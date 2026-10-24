@@ -5,6 +5,9 @@ TampilKit Booking adalah template web appointment booking berbasis *modular mono
 
 Seluruh antarmuka publik menggunakan Bahasa Indonesia, sedangkan kode sumber, model basis data, dan dokumentasi teknis menggunakan Bahasa Inggris & Indonesia formal.
 
+> 📖 **Panduan Penggunaan Lengkap & Alur Sistem**:
+> Untuk alur kerja pelanggan, operasional dashboard owner/staf, dan langkah eksekusi lengkap, silakan baca [Panduan Penggunaan dan Alur Sistem](docs/PANDUAN_PENGGUNAAN_DAN_ALUR.md).
+
 ---
 
 ## 1. Arsitektur & Teknologi
