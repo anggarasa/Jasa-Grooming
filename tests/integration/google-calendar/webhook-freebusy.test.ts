@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterAll } from "vitest";
 import { prisma } from "@/lib/prisma";
 import { processGoogleWebhook } from "@/modules/integrations/google/google-webhook.service";
 import { queryGoogleFreeBusy } from "@/modules/integrations/google/google-freebusy.service";
@@ -12,8 +12,17 @@ describe("Google Calendar Webhook & FreeBusy Fail-Closed Engine", () => {
   const rawToken = "my-secret-webhook-token-12345";
 
   beforeEach(async () => {
-    const business = await prisma.business.findFirst();
-    testBusinessId = business!.id;
+    // Use isolated test business fixture
+    const business = await prisma.business.upsert({
+      where: { slug: "test-fixture-biz-webhook" },
+      create: {
+        id: "test-fixture-biz-webhook-id",
+        name: "Test Webhook Fixture",
+        slug: "test-fixture-biz-webhook",
+      },
+      update: {},
+    });
+    testBusinessId = business.id;
 
     const conn = await prisma.calendarConnection.upsert({
       where: {
@@ -47,6 +56,20 @@ describe("Google Calendar Webhook & FreeBusy Fail-Closed Engine", () => {
         status: "ACTIVE",
       },
     });
+  });
+
+  afterAll(async () => {
+    try {
+      await prisma.calendarWebhookChannel.deleteMany({
+        where: { calendarConnection: { businessId: "test-fixture-biz-webhook-id" } },
+      });
+      await prisma.calendarConnection.deleteMany({
+        where: { businessId: "test-fixture-biz-webhook-id" },
+      });
+      await prisma.business.deleteMany({
+        where: { id: "test-fixture-biz-webhook-id" },
+      });
+    } catch {}
   });
 
   describe("Webhook Notifications", () => {

@@ -4,6 +4,7 @@ import { requireRole } from "@/lib/auth/server";
 import { validateCsrfOrigin } from "@/modules/auth/csrf.service";
 import { getPrimaryBusiness } from "@/modules/business/business.service";
 import { prisma } from "@/lib/prisma";
+import { executeSyncJob } from "@/modules/integrations/google/google-sync-worker.service";
 import { apiSuccess, apiError, handleApiError } from "@/lib/api-response";
 
 export async function POST(
@@ -45,7 +46,17 @@ export async function POST(
       },
     });
 
-    return apiSuccess(updated, "Job sinkronisasi berhasil dijadwalkan ulang.");
+    try {
+      await executeSyncJob(job.id);
+    } catch (execErr) {
+      console.warn("[GoogleSyncRetryRoute] Eksekusi job langsung:", execErr);
+    }
+
+    const latestJob = await prisma.calendarSyncJob.findUnique({
+      where: { id: job.id },
+    });
+
+    return apiSuccess(latestJob || updated, "Job sinkronisasi berhasil diproses ulang.");
   } catch (error) {
     return handleApiError(error, "Gagal mengulang job sinkronisasi.");
   }

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterAll } from "vitest";
 import { prisma } from "@/lib/prisma";
 import { enqueueCalendarSyncJob } from "@/modules/integrations/google/google-sync-outbox.service";
 import {
@@ -16,9 +16,17 @@ describe("Google Calendar Outbox Queue & Worker", () => {
     // Enable flag for test
     (env as { GOOGLE_CALENDAR_SYNC_ENABLED: boolean }).GOOGLE_CALENDAR_SYNC_ENABLED = true;
 
-    // Get or create primary business
-    const business = await prisma.business.findFirst();
-    testBusinessId = business!.id;
+    // Use isolated test business fixture
+    const business = await prisma.business.upsert({
+      where: { slug: "test-fixture-biz-outbox" },
+      create: {
+        id: "test-fixture-biz-outbox-id",
+        name: "Test Outbox Fixture",
+        slug: "test-fixture-biz-outbox",
+      },
+      update: {},
+    });
+    testBusinessId = business.id;
 
     // Upsert a test calendar connection
     const conn = await prisma.calendarConnection.upsert({
@@ -44,6 +52,20 @@ describe("Google Calendar Outbox Queue & Worker", () => {
     await prisma.calendarSyncJob.deleteMany({
       where: { calendarConnectionId: testConnectionId },
     });
+  });
+
+  afterAll(async () => {
+    try {
+      await prisma.calendarSyncJob.deleteMany({
+        where: { calendarConnection: { businessId: "test-fixture-biz-outbox-id" } },
+      });
+      await prisma.calendarConnection.deleteMany({
+        where: { businessId: "test-fixture-biz-outbox-id" },
+      });
+      await prisma.business.deleteMany({
+        where: { id: "test-fixture-biz-outbox-id" },
+      });
+    } catch {}
   });
 
   it("berhasil melakukan transactional enqueue ke tabel calendar_sync_jobs", async () => {

@@ -13,3 +13,4 @@
 - [2026-10-23] [Integrasi Pihak Ketiga] Uji sanitasi data sensitif pada payload keluar dan race condition pemutusan webhook secara konkuren.
 - [2026-10-23] [Pengujian] Bungkus setiap mutasi variabel lingkungan dalam blok try-finally demi menjamin isolasi konfigurasi antar-test suite.
 - [2026-10-23] [Audit] Verifikasi prioritas field snapshot historis daripada relasi langsung pada rincian transaksi guna menjaga integritas riwayat.
+- [2026-10-23] [Isolasi Pengujian] Gunakan fixture entitas khusus dan bersihkan pada afterAll agar manipulasi database pada pengujian tidak mencemari data bisnis utama.

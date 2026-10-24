@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterAll, vi } from "vitest";
 import { prisma } from "@/lib/prisma";
 import {
   generateGoogleAuthUrl,
@@ -58,8 +58,17 @@ describe("Google OAuth & Token Management Service", () => {
     (env as { GOOGLE_CLIENT_ID: string }).GOOGLE_CLIENT_ID = "mock-client-id";
     (env as { GOOGLE_CLIENT_SECRET: string }).GOOGLE_CLIENT_SECRET = "mock-client-secret";
 
-    const business = await prisma.business.findFirst();
-    testBusinessId = business!.id;
+    // Use isolated test business fixture so primary business is never contaminated
+    const business = await prisma.business.upsert({
+      where: { slug: "test-fixture-biz-oauth" },
+      create: {
+        id: "test-fixture-biz-oauth-id",
+        name: "Test OAuth Fixture",
+        slug: "test-fixture-biz-oauth",
+      },
+      update: {},
+    });
+    testBusinessId = business.id;
 
     // Reset connection
     const conn = await prisma.calendarConnection.upsert({
@@ -89,6 +98,17 @@ describe("Google OAuth & Token Management Service", () => {
       },
     });
     testConnectionId = conn.id;
+  });
+
+  afterAll(async () => {
+    try {
+      await prisma.calendarConnection.deleteMany({
+        where: { businessId: "test-fixture-biz-oauth-id" },
+      });
+      await prisma.business.deleteMany({
+        where: { id: "test-fixture-biz-oauth-id" },
+      });
+    } catch {}
   });
 
   describe("generateGoogleAuthUrl", () => {

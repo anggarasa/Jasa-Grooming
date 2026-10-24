@@ -14,3 +14,5 @@
 - [2026-10-23] [Keamanan] Gunakan perbandingan waktu-konstan pada verifikasi signature webhook dan evaluasi ulang status entitas di dalam transaksi ber-lock.
 - [2026-10-23] [Database] Jangan catat status error di dalam transaksi yang melempar exception; perbarui status di luar transaksi atau blok finally.
 - [2026-10-23] [Integrasi Pihak Ketiga] Lakukan auto-recovery pembaruan access token menggunakan refresh token saat token kosong atau kedaluwarsa sebelum melempar error.
+- [2026-10-23] [Konfigurasi Lingkungan] Muat berkas env lokal sebelum env utama agar server dan script mandiri selalu membaca konfigurasi override lokal.
+- [2026-10-23] [Antrean Job] Picu eksekusi sinkronisasi langsung pada endpoint retry pekerjaan agar pemrosesan ulang berjalan seketika tanpa menunggu daemon worker.

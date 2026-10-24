@@ -75,7 +75,10 @@ export async function checkStorageHealth(
   bucketName: string = STORAGE_BUCKET
 ): Promise<StorageHealthStatus> {
   try {
-    await ensureBucketExists(bucketName);
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Timeout terhubung ke MinIO")), 2000)
+    );
+    await Promise.race([ensureBucketExists(bucketName), timeoutPromise]);
     return {
       healthy: true,
       bucket: bucketName,

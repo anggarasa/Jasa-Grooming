@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach, afterAll } from "vitest";
 import { prisma } from "@/lib/prisma";
 import {
   listCalendarConflicts,
@@ -15,8 +15,17 @@ describe("Google Calendar Conflicts & Disconnect Workflows", () => {
   let testConnectionId: string;
 
   beforeEach(async () => {
-    const business = await prisma.business.findFirst();
-    testBusinessId = business!.id;
+    // Use isolated test business fixture
+    const business = await prisma.business.upsert({
+      where: { slug: "test-fixture-biz-conflicts" },
+      create: {
+        id: "test-fixture-biz-conflicts-id",
+        name: "Test Conflicts Fixture",
+        slug: "test-fixture-biz-conflicts",
+      },
+      update: {},
+    });
+    testBusinessId = business.id;
 
     // Get or create owner user
     let user = await prisma.user.findFirst({ where: { role: Role.OWNER } });
@@ -122,5 +131,22 @@ describe("Google Calendar Conflicts & Disconnect Workflows", () => {
       where: { calendarConnectionId: testConnectionId },
     });
     expect(remainingIntervals).toBe(0);
+  });
+
+  afterAll(async () => {
+    try {
+      await prisma.calendarExternalBusyInterval.deleteMany({
+        where: { calendarConnection: { businessId: "test-fixture-biz-conflicts-id" } },
+      });
+      await prisma.calendarSyncConflict.deleteMany({
+        where: { calendarConnection: { businessId: "test-fixture-biz-conflicts-id" } },
+      });
+      await prisma.calendarConnection.deleteMany({
+        where: { businessId: "test-fixture-biz-conflicts-id" },
+      });
+      await prisma.business.deleteMany({
+        where: { id: "test-fixture-biz-conflicts-id" },
+      });
+    } catch {}
   });
 });
