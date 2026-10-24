@@ -1,10 +1,18 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, vi, beforeAll, afterAll } from "vitest";
 import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { GET as getAvailability } from "@/app/api/availability/route";
 import { POST as postBooking } from "@/app/api/bookings/route";
 import { GET as getBookingManage } from "@/app/api/bookings/manage/route";
 import { GET as getBookingManageAlias } from "@/app/api/booking/manage/route";
+
+vi.mock("@/modules/integrations/google/google-freebusy.service", () => ({
+  queryGoogleFreeBusy: vi.fn().mockResolvedValue({
+    isAvailableChecked: false,
+    isFailClosed: false,
+    busyIntervals: [],
+  }),
+}));
 
 function getFutureWeekday(daysAhead: number): string {
   const futureDate = new Date();
