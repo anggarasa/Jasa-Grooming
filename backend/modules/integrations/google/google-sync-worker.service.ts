@@ -130,6 +130,25 @@ export async function executeSyncJob(jobId: string) {
     return;
   }
 
+  // Guard against orphan jobs
+  if (
+    (job.operationType === "RESOURCE_BLOCK_CREATE" && !job.resourceBlock) ||
+    (job.operationType === "RESOURCE_BLOCK_CANCEL" && !job.resourceBlockId) ||
+    ((job.operationType === "CREATE" || job.operationType === "RESCHEDULE") && !job.booking) ||
+    (job.operationType === "CANCEL" && !job.bookingId)
+  ) {
+    await prisma.calendarSyncJob.update({
+      where: { id: job.id },
+      data: {
+        status: "DEAD_LETTER",
+        lastError: "Data referensi job (booking / resource block) tidak ditemukan atau bernilai null.",
+        lockedUntil: null,
+        lockedBy: null,
+      },
+    });
+    return;
+  }
+
   try {
     const { calendar, selectedCalendarId } = await getCalendarClient(calendarConnection.id);
 
