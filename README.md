@@ -5,8 +5,7 @@ TampilKit Booking adalah template web appointment booking berbasis *modular mono
 
 Seluruh antarmuka publik menggunakan Bahasa Indonesia, sedangkan kode sumber, model basis data, dan dokumentasi teknis menggunakan Bahasa Inggris & Indonesia formal.
 
-> 📖 **Panduan Penggunaan Lengkap & Alur Sistem**:
-> Untuk alur kerja pelanggan, operasional dashboard owner/staf, dan langkah eksekusi lengkap, silakan baca [Panduan Penggunaan dan Alur Sistem](docs/PANDUAN_PENGGUNAAN_DAN_ALUR.md).
+> 📖 Dokumen panduan (alur sistem, runbook, laporan fase, desain) disimpan **lokal** di `docs/` dan tidak disertakan di repositori. Hanya README ini yang ikut ke GitHub.
 
 ---
 
@@ -35,40 +34,35 @@ Seluruh antarmuka publik menggunakan Bahasa Indonesia, sedangkan kode sumber, mo
 
 ## 2. Struktur Proyek
 
+Satu aplikasi Next.js dengan kode yang dipisah menjadi **frontend** (tampilan) dan **backend** (logika bisnis & data). Tetap satu server, satu perintah `npm run dev`; URL, API, dan login tidak berubah.
+
 ```text
-├── prisma/
-│   ├── schema.prisma             # Skema 10 model relasional PostgreSQL
-│   ├── migrations/               # Riwayat migrasi versioned Prisma
-│   └── seed.ts                   # Seed idempotent (PawCare Grooming & user)
-├── public/                       # Static assets
-├── src/
-│   ├── app/
-│   │   ├── api/health/route.ts   # Health check API (DB & MinIO connectivity)
-│   │   ├── globals.css           # Token Tailwind CSS & shadcn variables
-│   │   ├── layout.tsx            # Root layout & font Geist
-│   │   └── page.tsx              # Landing page publik PawCare Grooming
-│   ├── components/
-│   │   ├── common/               # Komponen spesifik fitur (Hero, Navbar, dll)
-│   │   └── ui/                   # Komponen fondasi shadcn/ui
-│   ├── config/
-│   │   ├── env.ts                # Validasi environment runtime Zod
-│   │   └── site.ts               # Metadata & navigasi situs
-│   ├── lib/
-│   │   ├── minio.ts              # Server-only S3 storage utility singleton
-│   │   ├── prisma.ts             # Singleton Prisma Client dev-safe
-│   │   └── utils.ts              # Helper kelas styling (clsx, tailwind-merge)
-│   └── modules/                  # Batas domain untuk fase mendatang
-├── tests/
-│   ├── integration/              # Health check integration tests
-│   ├── mocks/                    # Mocking server-only & SDK
-│   └── unit/                     # Unit test env, minio utility, homepage UI
-├── docs/
-│   ├── ARCHITECTURE.md           # Rincian arsitektur & alur data
-│   └── PHASE_01_REPORT.md        # Laporan lengkap implementasi Phase 01
-├── .env.example                  # Template konfigurasi environment tersanitasi
-├── .env.local                    # Konfigurasi kredensial lokal (diabaikan git)
-└── package.json                  # Script & dependensi proyek
+├── frontend/                     # TAMPILAN (aplikasi Next.js)
+│   ├── app/                      # Halaman publik, /login, /dashboard
+│   │   ├── api/**/route.ts       # Pintu API: 1 baris yang meneruskan ke backend/api
+│   │   └── globals.css           # Token tema & motion
+│   ├── components/               # Komponen UI (publik, booking, dashboard, ui/)
+│   ├── lib/                      # Helper tampilan (utils, format tanggal, SEO, klien API)
+│   ├── config/site.ts            # Metadata & navigasi situs
+│   ├── public/                   # Gambar & aset statis
+│   ├── tests/                    # Tes tampilan (React Testing Library)
+│   └── next.config.ts
+├── backend/                      # LOGIKA & DATA
+│   ├── api/**/route.ts           # Isi 60 endpoint API
+│   ├── modules/                  # Domain: auth, bookings, availability, business, services, …
+│   ├── lib/                      # prisma, minio, enkripsi, cache, auth server/cookie
+│   ├── config/env.ts             # Validasi environment (Zod)
+│   ├── prisma/                   # schema.prisma, migrations/, seed.ts
+│   ├── workers/                  # Worker & sinkronisasi Google Calendar
+│   ├── scripts/                  # Bootstrap owner, backup drill, data contoh
+│   └── tests/                    # Tes unit & integrasi backend
+├── .env.example / .env.local     # Konfigurasi (tetap di akar proyek)
+├── package.json                  # Satu daftar dependensi & semua perintah
+├── tsconfig.json                 # Alias: @/… → frontend, @backend/… → backend
+└── vitest.config.mts
 ```
+
+Aturan arah ketergantungan: **frontend boleh memakai backend** (`@backend/...`), **backend tidak boleh memakai frontend** (`@/...`).
 
 ---
 
@@ -91,7 +85,7 @@ NODE_ENV="development"
 NEXT_PUBLIC_APP_NAME="TampilKit Booking"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-DATABASE_URL="postgresql://postgres:anggara-sa@localhost:5432/tampilkit_booking?schema=public"
+DATABASE_URL="postgresql://postgres:PASSWORD_ANDA@localhost:5432/tampilkit_booking?schema=public"
 
 MINIO_ENDPOINT="localhost"
 MINIO_PORT="9000"
@@ -123,9 +117,10 @@ npm run db:seed
 ```
 
 ### 4. Eksekusi Pengujian (Testing)
-Jalankan suite pengujian lengkap dengan Vitest:
 ```bash
-npm run test
+npm run test:frontend   # tes tampilan
+npm run test:backend    # tes backend (integrasi butuh database & menulis data uji)
+npm run test            # semuanya
 ```
 
 ### 5. Typecheck & Linter
@@ -145,6 +140,11 @@ Mode produksi (*production build & start*):
 ```bash
 npm run build
 npm run start
+```
+
+Worker Google Calendar (proses terpisah):
+```bash
+npm run calendar:worker
 ```
 
 ---

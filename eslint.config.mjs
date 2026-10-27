@@ -5,13 +5,17 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Aplikasi Next.js ada di frontend/ (dipakai aturan seperti no-html-link-for-pages).
+  { settings: { next: { rootDir: "frontend/" } } },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
     ".next/**",
+    "frontend/.next/**",
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "frontend/next-env.d.ts",
   ]),
 ]);
 

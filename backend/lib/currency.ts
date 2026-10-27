@@ -1,0 +1,9 @@
+/** Format angka ke Rupiah tanpa desimal, mis. 85000 → "Rp 85.000". Dipakai backend & frontend. */
+export function formatIDR(amount: number): string {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}

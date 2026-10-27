@@ -13,9 +13,10 @@
 # testing
 /coverage
 
-# next.js
-/.next/
+# next.js (aplikasi ada di frontend/)
+.next/
 /out/
+next-env.d.ts
 
 # production
 /build
@@ -44,3 +45,11 @@ next-env.d.ts
 
 # drill backups
 .backup-drill/
+
+# Dokumen panduan (.md) hanya disimpan di komputer lokal, tidak ikut ke GitHub.
+# README.md tetap disertakan sebagai halaman depan repo.
+*.md
+!/README.md
+
+# Folder docs/ (gambar referensi, screenshot audit, aset zip) hanya lokal.
+/docs/
