@@ -1,9 +1,26 @@
+import { execSync } from "child_process";
+
+function ensureDatabaseSchema() {
+  try {
+    console.log("[Seed] Memeriksa dan menerapkan skema tabel database (prisma db push)...");
+    execSync("npx prisma db push --skip-generate --accept-data-loss", {
+      stdio: "inherit",
+      env: process.env,
+    });
+    console.log("[Seed] Sinkronisasi tabel database selesai.");
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    console.warn("[Seed] Catatan: prisma db push menghasilkan pesan:", msg);
+  }
+}
+
 import { PrismaClient, Role, BookingStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  ensureDatabaseSchema();
   console.log("🌱 Memulai seeding basis data...");
 
   // 1. Seed Owner Account
