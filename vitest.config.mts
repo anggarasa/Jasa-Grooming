@@ -8,9 +8,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@backend": path.resolve(import.meta.dirname, "./backend"),
-      "@": path.resolve(import.meta.dirname, "./frontend"),
-      "server-only": path.resolve(import.meta.dirname, "./backend/tests/mocks/server-only.ts"),
+      "@backend": path.resolve(import.meta.dirname, "."),
+      "@": path.resolve(import.meta.dirname, "."),
+      "server-only": path.resolve(import.meta.dirname, "./tests/mocks/server-only.ts"),
     },
   },
 });
