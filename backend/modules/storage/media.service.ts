@@ -154,10 +154,10 @@ export async function getMediaStream(
   ];
 
   for (const candidatePath of localCandidates) {
-    if (fs.existsSync(candidatePath)) {
-      const stat = fs.statSync(candidatePath);
+    if (fs.existsSync(/*turbopackIgnore: true*/ candidatePath)) {
+      const stat = fs.statSync(/*turbopackIgnore: true*/ candidatePath);
       if (stat.isFile()) {
-        const stream = fs.createReadStream(candidatePath);
+        const stream = fs.createReadStream(/*turbopackIgnore: true*/ candidatePath);
         let contentType = "application/octet-stream";
         if (normalizedKey.endsWith(".webp")) contentType = "image/webp";
         else if (normalizedKey.endsWith(".jpg") || normalizedKey.endsWith(".jpeg")) contentType = "image/jpeg";

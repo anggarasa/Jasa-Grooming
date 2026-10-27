@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev frontend",
-    "build": "next build frontend",
+    "build": "prisma generate && node --max-old-space-size=2048 ./node_modules/next/dist/bin/next build frontend",
     "start": "next start frontend",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
@@ -23,7 +23,8 @@
     "calendar:renew-watches": "tsx backend/workers/renew-watches.ts",
     "backup:drill": "tsx backend/scripts/backup-restore-drill.ts",
     "test:frontend": "vitest run frontend/tests",
-    "test:backend": "vitest run backend/tests"
+    "test:backend": "vitest run backend/tests",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "schema": "backend/prisma/schema.prisma",
