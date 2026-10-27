@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta-sans",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const metadata: Metadata = {
   title: "PawCare Grooming - Perawatan Terbaik untuk Sahabat Berbulu Anda",
@@ -23,7 +15,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${plusJakartaSans.variable} font-sans h-full antialiased`}
+      className="font-sans h-full antialiased"
       suppressHydrationWarning
     >
       <body

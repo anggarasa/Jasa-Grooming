@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 /*
@@ -16,7 +17,7 @@
    * dengan merujuk font Geist yang tidak pernah dimuat, sehingga seluruh font
    * gagal terpakai dan tampil sebagai Times.
    */
-  --font-sans: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+--font-sans: 'Plus Jakarta Sans', var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   --color-sage: #B4C4B9;
   --color-sage-dark: #2D3E33;
@@ -27,7 +28,7 @@
    * referensi; lihat docs/redesign/design-tokens.md. Ditambahkan di samping
    * token lama: dashboard dan halaman lain tidak berubah.
    */
-  --font-brand: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-brand: 'Plus Jakarta Sans', var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
   --color-canvas: #F3FFF3;
   --color-canvas-tint: #F3FFFB;
