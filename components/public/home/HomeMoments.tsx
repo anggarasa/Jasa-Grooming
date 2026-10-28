@@ -67,7 +67,7 @@ export function HomeMoments({ items }: HomeMomentsProps) {
         className={`group relative isolate block overflow-hidden rounded-card-lg bg-forest-deep-2 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-forest-deep ${className}`}
       >
         <img
-          src={`/api/media/${item.objectKey}`}
+          src={`/media/${item.objectKey}`}
           alt={alt}
           loading="lazy"
           decoding="async"

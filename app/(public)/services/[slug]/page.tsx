@@ -54,7 +54,7 @@ export async function generateMetadata({
 
   const businessName = business?.name || "PawCare Grooming";
   const ogImageUrl = service.imageObjectKey
-    ? `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/api/media/${service.imageObjectKey}`
+    ? `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/media/${service.imageObjectKey.replace(/^\/+/, "").replace(/^media\//, "")}`
     : undefined;
 
   return constructMetadata({

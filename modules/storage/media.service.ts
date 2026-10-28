@@ -147,7 +147,8 @@ export async function getMediaStream(
   // 1. Cek fallback berkas lokal (misalnya di folder public/media/)
   // Aset publik kini ada di public; lokasi lama tetap dicoba sebagai cadangan.
   const localCandidates = [
-    path.join(process.cwd(), "frontend", "public", "media", normalizedKey),
+    path.join(process.cwd(), "public", "media", normalizedKey.replace(/^\/+/, "").replace(/^media\//, "")),
+    path.join(process.cwd(), "public", normalizedKey.replace(/^\/+/, "").replace(/^media\//, "")),
     path.join(process.cwd(), "frontend", "public", normalizedKey),
     path.join(process.cwd(), "public", "media", normalizedKey),
     path.join(process.cwd(), "public", normalizedKey),

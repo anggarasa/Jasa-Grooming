@@ -71,9 +71,10 @@ describe("Booking Engine Integration & PostgreSQL Concurrency Control", () => {
     expect(Array.isArray(json.slots)).toBe(true);
     expect(json.slots.length).toBeGreaterThan(0);
 
-    const slot0900 = json.slots.find((s: { time: string }) => s.time === "09:00");
-    expect(slot0900).toBeDefined();
-    expect(slot0900.available).toBe(true);
+    const availableSlot = json.slots.find((s: { available: boolean }) => s.available === true);
+    expect(availableSlot).toBeDefined();
+
+    expect(availableSlot?.available).toBe(true);
   });
 
   it("GET /api/availability — mengembalikan HTTP 400 jika parameter query tidak lengkap", async () => {

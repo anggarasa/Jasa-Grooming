@@ -117,7 +117,7 @@ export function buildLocalBusinessJsonLd(
     }));
 
   const logoUrl = business.logoObjectKey
-    ? `${baseUrl}/api/media/${business.logoObjectKey}`
+    ? `${baseUrl}/media/${business.logoObjectKey.replace(/^\/+/, "").replace(/^media\//, "")}`
     : undefined;
 
   return {
@@ -152,7 +152,7 @@ export function buildServiceJsonLd(
 ) {
   const serviceUrl = `${baseUrl}/services/${encodeURIComponent(service.slug)}`;
   const imageUrl = service.imageObjectKey
-    ? `${baseUrl}/api/media/${service.imageObjectKey}`
+    ? `${baseUrl}/media/${service.imageObjectKey.replace(/^\/+/, "").replace(/^media\//, "")}`
     : undefined;
 
   return {

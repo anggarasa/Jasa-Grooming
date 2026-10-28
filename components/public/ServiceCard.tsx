@@ -21,7 +21,7 @@ export function ServiceCard({ service }: ServiceCardProps) {
         <div className="relative aspect-[16/11] w-full overflow-hidden rounded-[20px] bg-[#E8EDE7]">
           {service.imageObjectKey ? (
             <img
-              src={`/api/media/${service.imageObjectKey}`}
+              src={`/media/${service.imageObjectKey}`}
               alt={`Foto layanan ${service.name}`}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

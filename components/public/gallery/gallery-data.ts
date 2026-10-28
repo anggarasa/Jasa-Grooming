@@ -130,7 +130,7 @@ export function buildGalleryItems(dbItems: PublicGalleryItem[]): GalleryDisplayI
     if (override) {
       return {
         ...item,
-        src: `/api/media/${item.objectKey}`,
+        src: `/media/${item.objectKey}`,
         alt: override.alt,
         altText: override.alt,
         caption: override.caption,
@@ -142,7 +142,7 @@ export function buildGalleryItems(dbItems: PublicGalleryItem[]): GalleryDisplayI
     const alt = item.altText || item.caption || `Foto galeri PawCare ${index + 1}`;
     return {
       ...item,
-      src: `/api/media/${item.objectKey}`,
+      src: `/media/${item.objectKey}`,
       alt,
       width: DEFAULT_DIMENSIONS.width,
       height: DEFAULT_DIMENSIONS.height,

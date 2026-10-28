@@ -48,7 +48,7 @@ export function GalleryGrid({ items }: GalleryGridProps) {
               className="group relative aspect-[4/3] w-full cursor-pointer overflow-hidden rounded-card-lg bg-canvas-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2"
             >
               <img
-                src={item.src ?? `/api/media/${item.objectKey}`}
+                src={item.src ?? `/media/${item.objectKey}`}
                 alt={altText}
                 loading="lazy"
                 className="h-full w-full object-cover"

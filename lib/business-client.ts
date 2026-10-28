@@ -170,7 +170,7 @@ export function getMediaUrl(keyOrUrl?: string | null): string {
   ) {
     return keyOrUrl;
   }
-  return `/api/media/${encodeURIComponent(keyOrUrl)}`;
+  return `/media/${keyOrUrl}`;
 }
 
 // ---------------------------------------------------------------------------

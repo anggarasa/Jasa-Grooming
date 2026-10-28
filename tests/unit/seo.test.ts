@@ -145,7 +145,7 @@ describe("Technical SEO & Structured Data Helpers (Unit)", () => {
       expect(jsonLd?.["@type"]).toBe("PetGroomingService");
       expect(jsonLd?.name).toBe("PawCare Grooming Studio");
       expect(jsonLd?.telephone).toBe("08123456789");
-      expect(jsonLd?.image).toBe("https://pawcare.id/api/media/uploads/logo.png");
+      expect(jsonLd?.image).toBe("https://pawcare.id/media/uploads/logo.png");
       expect(jsonLd?.address["@type"]).toBe("PostalAddress");
       expect(jsonLd?.address.addressLocality).toBe("Jakarta Selatan");
       expect(jsonLd?.address.addressCountry).toBe("ID");
@@ -166,7 +166,7 @@ describe("Technical SEO & Structured Data Helpers (Unit)", () => {
       expect(jsonLd["@type"]).toBe("Service");
       expect(jsonLd.name).toBe("Full Grooming Premium Anjing");
       expect(jsonLd.url).toBe("https://pawcare.id/services/full-grooming-anjing");
-      expect(jsonLd.image).toBe("https://pawcare.id/api/media/uploads/full-grooming.jpg");
+      expect(jsonLd.image).toBe("https://pawcare.id/media/uploads/full-grooming.jpg");
       expect(jsonLd.offers["@type"]).toBe("Offer");
       expect(jsonLd.offers.price).toBe(150000);
       expect(jsonLd.offers.priceCurrency).toBe("IDR");

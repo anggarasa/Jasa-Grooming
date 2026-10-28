@@ -83,7 +83,7 @@ describe("resolveServicePhoto", () => {
 
   it("mempertahankan foto unggahan admin (kunci selain bawaan seed)", () => {
     const photo = resolveServicePhoto("services/images/custom-upload-123.webp", "Layanan Baru");
-    expect(photo?.src).toBe("/api/media/services/images/custom-upload-123.webp");
+    expect(photo?.src).toBe("/media/services/images/custom-upload-123.webp");
     expect(photo?.alt).toBe("Foto layanan Layanan Baru");
   });
 });

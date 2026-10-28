@@ -35,7 +35,7 @@ describe("buildGalleryItems", () => {
     // keterangan menyesatkan ("Area Grooming Bersih Ber-AC") tidak ditampilkan lagi
     expect(first.caption).toBeNull();
     expect(first.category).toBe("momen");
-    expect(first.src).toBe("/api/media/gallery/images/salon-facility.webp");
+    expect(first.src).toBe("/media/gallery/images/salon-facility.webp");
     // objek input tidak dimutasi (data database tidak berubah)
     expect(seeded.altText).toBe("Ruangan salon bersih dengan meja hidrolik dan sterilisasi UV");
   });

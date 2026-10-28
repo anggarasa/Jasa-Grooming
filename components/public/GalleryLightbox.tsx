@@ -4,7 +4,7 @@ import * as React from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { PublicGalleryItem } from "@backend/modules/public/public-gallery.service";
 
-/** Item galeri; `src` (opsional) menggantikan jalur /api/media/<objectKey> untuk foto statis. */
+/** Item galeri; `src` (opsional) menggantikan jalur /media/<objectKey> untuk foto statis. */
 export type LightboxItem = PublicGalleryItem & { src?: string };
 
 interface GalleryLightboxProps {
@@ -140,7 +140,7 @@ export function GalleryLightbox({
         onClick={(e) => e.stopPropagation()}
       >
         <img
-          src={currentItem.src ?? `/api/media/${currentItem.objectKey}`}
+          src={currentItem.src ?? `/media/${currentItem.objectKey}`}
           alt={altText}
           className="max-h-[75vh] w-auto max-w-full rounded-card-lg object-contain"
         />

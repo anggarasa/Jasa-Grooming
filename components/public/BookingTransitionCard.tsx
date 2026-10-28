@@ -82,7 +82,7 @@ export function BookingTransitionCard({
               <div className="h-24 w-24 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
                 {selectedService.imageObjectKey ? (
                   <img
-                    src={`/api/media/${selectedService.imageObjectKey}`}
+                    src={`/media/${selectedService.imageObjectKey}`}
                     alt={selectedService.name}
                     className="h-full w-full object-cover"
                   />

@@ -88,7 +88,7 @@ export function resolveServicePhoto(
   if (replacement) return { ...replacement };
 
   return {
-    src: `/api/media/${imageObjectKey}`,
+    src: `/media/${imageObjectKey}`,
     alt: `Foto layanan ${serviceName}`,
     width: null,
     height: null,
